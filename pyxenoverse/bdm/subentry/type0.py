@@ -67,8 +67,8 @@ class Type0(BaseType):
     size = 128
 
     def convert_type1_to_type0(self, type1):
-        self.data = self.bac_record(*([0] * len(self.bac_record.__attrs__)))
-        for attr in type1.__attrs__:
-            if attr in self.__attrs__:
-                self.data[attr] = type1[attr]
+        self.data = self.bac_record(*([0] * len(self.bac_record.__fields__)))
+        for field in type1.__fields__:
+            if field in self.__fields__:
+                self.data[field] = type1[field]
 

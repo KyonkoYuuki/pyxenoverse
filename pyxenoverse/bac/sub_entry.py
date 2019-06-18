@@ -75,7 +75,7 @@ class SubEntry(BaseRecord):
         super().__init__()
         self.items = []
         self.index = index
-        self.data = BACSubEntry(*([0] * len(BACSubEntry.__attrs__)))
+        self.data = BACSubEntry(*([0] * len(BACSubEntry.__fields__)))
         self.dependencies = {}
 
     def read(self, f, endian):

@@ -21,7 +21,7 @@ class Entry(BaseRecord):
         self.bac = bac
         self.index = index
         self.sub_entries = []
-        self.data = BACEntry(*([0] * len(BACEntry.__attrs__)))
+        self.data = BACEntry(*([0] * len(BACEntry.__fields__)))
         self.flags = 0x80000000
 
     def read(self, f, endian):

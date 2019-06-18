@@ -8,7 +8,7 @@ class BaseType(BaseRecord):
     def __init__(self, index):
         super().__init__()
         self.index = index
-        self.data = self.bac_record(*([0] * len(self.bac_record.__attrs__)))
+        self.data = self.bac_record(*([0] * len(self.bac_record.__fields__)))
 
     def read(self, f, endian, _):
         self.data = self.bac_record(*struct.unpack(endian + self.byte_order, f.read(self.size)))
