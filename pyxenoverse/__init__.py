@@ -19,7 +19,7 @@ def merge_dict(d1, d2):
 
 
 class EmptyRecord:
-    __attrs__ = ()
+    __fields__ = ()
 
 
 class BaseRecord(object):
@@ -36,7 +36,7 @@ class BaseRecord(object):
         return self.__getattr__(item)
 
     def __setattr__(self, item, value):
-        if item in self.__attrs__:
+        if item in self.__fields__:
             self.data.__setattr__(item, value)
         else:
             super().__setattr__(item, value)

@@ -15,11 +15,11 @@ BACProjectile = recordclass('BACProjectile', [
     'position_x',
     'position_y',
     'position_z',
-    'rotation_x',
-    'rotation_y',
-    'rotation_z',
     'skill_type',
     'spawn_properties',
+    'f_28',
+    'u_2c',
+    'u_2e',
     'projectile_health',
     'u_34',
     'u_38',
@@ -31,7 +31,7 @@ BACProjectile = recordclass('BACProjectile', [
 class Projectile(BaseType):
     type = 9
     bac_record = BACProjectile
-    byte_order = 'HHHHHHIHHffffffHHIIII'
+    byte_order = 'HHHHHHIHHfffIIfHHIIII'
     size = 64
     dependencies = {
         ('skill_id', None): {},
