@@ -85,7 +85,6 @@ class KeyframedAnimation(BaseRecord):
                 upper_keyframe = keyframe
                 break
 
-        # print("frame: {}, lower_frame: {}, upper_frame: {}".format(frame, lower_keyframe.frame, upper_keyframe.frame))
         interpolated_frame = Keyframe()
         interpolated_frame.frame = frame
         if lower_keyframe is None and upper_keyframe is None:
@@ -94,7 +93,10 @@ class KeyframedAnimation(BaseRecord):
             interpolated_frame.z = 0.0
             interpolated_frame.w = 0.0
         elif lower_keyframe == upper_keyframe:
-            return None
+            interpolated_frame.x = lower_keyframe.x
+            interpolated_frame.y = lower_keyframe.y
+            interpolated_frame.z = lower_keyframe.z
+            interpolated_frame.w = lower_keyframe.w
         elif lower_keyframe is not None and upper_keyframe is not None:
             lower_frame = float(lower_keyframe.frame)
             upper_frame = float(upper_keyframe.frame)
