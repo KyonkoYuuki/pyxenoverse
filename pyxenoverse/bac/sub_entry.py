@@ -29,6 +29,7 @@ from pyxenoverse.bac.types.type22 import Type22
 from pyxenoverse.bac.types.transparency_effect import TransparencyEffect
 from pyxenoverse.bac.types.dual_skill_data import DualSkillData
 from pyxenoverse.bac.types.charge_attack_parameters import ChargeAttackParameters
+from pyxenoverse.bac.types.type26 import Type26
 
 ITEM_TYPES = {
     0: Animation,
@@ -56,7 +57,8 @@ ITEM_TYPES = {
     22: Type22,
     23: TransparencyEffect,
     24: DualSkillData,
-    25: ChargeAttackParameters
+    25: ChargeAttackParameters,
+    26: Type26,
 }
 
 BACSubEntry = recordclass('BACSubEntry', [
