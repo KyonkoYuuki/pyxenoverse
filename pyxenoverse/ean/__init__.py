@@ -49,8 +49,6 @@ class EAN(BaseRecord):
             f.write(LIBXENOVERSE_EAN_SIGNATURE)
             return self.write(f, '<')
 
-
-
     def read(self, f, endian):
         self.data = EANHeader(*struct.unpack(endian + EAN_HEADER_BYTE_ORDER, f.read(EAN_HEADER_SIZE)))
         # print("--------------- read EAN \n[8] unkTotal : {}, animation_count : {}, SkeletonOffset : [{}]"
