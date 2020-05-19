@@ -55,29 +55,32 @@ class BAC:
             f.seek(self.header.data_start + i * 16)
             entry.read(f, endian)
             self.entries.append(entry)
-
         sub_entry_offset = [entry.sub_entry_offset for entry in self.entries if entry.sub_entry_offset][0]
         num_sub_entries = sum(entry.num_sub_entries for entry in self.entries)
         # print(f'num_sub_entries={num_sub_entries}')
         type17_small = False
-        type17_found = False
-        type17_entry = None
         index = 0
         for i in range(num_sub_entries):
             f.seek(sub_entry_offset + i * 16)
             sub_entry = SubEntry(0)
             sub_entry.read(f, endian)
-            # print(f'sub_entry={sub_entry}')
 
             # Get size of Throw Handler
-            if not type17_found:
-                if not type17_entry and sub_entry.type == 17:
-                    type17_entry = sub_entry
-                elif type17_entry:
-                    size = int((sub_entry.offset - type17_entry.offset) / type17_entry.num)
-                    if size == 0x14:
-                        type17_small = True
-                    type17_found = True
+            if not type17_small and sub_entry.type == 17 and sub_entry.num > 0:
+                # If we have another sub entry after this, this is easy
+                if i < num_sub_entries - 1:
+                    next_sub_entry = SubEntry(0)
+                    next_sub_entry.read(f, endian)
+                    size = int((next_sub_entry.offset - sub_entry.offset) / sub_entry.num)
+                # Otherwise just use the end of the file to tell how big the throw block is
+                else:
+                    f.seek(0, 2)
+                    file_size = f.tell()
+                    size = int((file_size - sub_entry.offset) / sub_entry.num)
+
+                if size == 0x14:
+                    type17_small = True
+
             sub_entry.read_items(f, endian, type17_small)
             while len(self.entries[index].sub_entries) >= self.entries[index].num_sub_entries:
                 index += 1
