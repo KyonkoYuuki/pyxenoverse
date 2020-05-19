@@ -49,6 +49,7 @@ class BAC:
     def read(self, f, endian):
         self.header = BACHeader(*struct.unpack(endian + BAC_HEADER_BYTE_ORDER, f.read(BAC_HEADER_SIZE)))
         self.entries.clear()
+        # print(f'num_entries={self.header.num_entries}')
         for i in range(self.header.num_entries):
             entry = Entry(self, i)
             f.seek(self.header.data_start + i * 16)
@@ -66,6 +67,7 @@ class BAC:
             f.seek(sub_entry_offset + i * 16)
             sub_entry = SubEntry(0)
             sub_entry.read(f, endian)
+            # print(f'sub_entry={sub_entry}')
 
             # Get size of Throw Handler
             if not type17_found:
@@ -88,7 +90,14 @@ class BAC:
         f.write(struct.pack(endian + BAC_HEADER_BYTE_ORDER, *self.header))
         entry_offset = self.header.data_start
         sub_entry_offset = entry_offset + 16 * len(self.entries)
-        item_offset = sub_entry_offset + 16 * sum(len(entry.sub_entries) for entry in self.entries)
+
+        # Delete any dummy entries automatically
+        num_sub_entries = 0
+        for entry in self.entries:
+            entry.sub_entries = [sub_entry for sub_entry in entry.sub_entries if len(sub_entry.items) > 0]
+            num_sub_entries += len(entry.sub_entries)
+
+        item_offset = sub_entry_offset + 16 * num_sub_entries
 
         for i, entry in enumerate(self.entries):
             f.seek(entry_offset)
