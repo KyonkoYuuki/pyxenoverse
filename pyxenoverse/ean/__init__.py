@@ -3,7 +3,7 @@ import math
 import struct
 from recordclass import recordclass
 
-from pyxenoverse import BaseRecord
+from pyxenoverse import BaseRecord, read_name, write_name
 from pyxenoverse.esk import ESK
 from pyxenoverse.ean.animation import Animation
 
@@ -78,7 +78,7 @@ class EAN(BaseRecord):
             f.seek(self.animation_names_offset + i * 4)
             address = struct.unpack(endian + 'I', f.read(4))[0]
             f.seek(address)
-            animation.read_name(f)
+            animation.name = read_name(f)
             # print("------ animation {} : [{}] => [{}] => {}".format(
             #     i, self.animation_names_offset + i * 4, address, animation.get_name()))
 
@@ -139,7 +139,7 @@ class EAN(BaseRecord):
             address = self.animation_names_offset + self.animation_count * 4 + names_size
             f.write(struct.pack(endian + 'I', address))
             f.seek(address)
-            animation.write_name(f)
+            write_name(f, animation.name)
             names_size += len(animation.name) + 1
 
         # Now we have offsets for everything, lets write the header

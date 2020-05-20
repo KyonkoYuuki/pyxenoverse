@@ -177,10 +177,3 @@ class Animation(BaseRecord):
 
     def set_name(self, name):
         self.name = name
-
-    def read_name(self, f):
-        self.name = ''.join(list(iter(lambda: f.read(1).decode(), '\x00')))
-
-    def write_name(self, f):
-        f.write(self.name.encode())
-        f.write(b'\x00')

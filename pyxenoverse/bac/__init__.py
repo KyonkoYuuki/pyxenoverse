@@ -89,7 +89,7 @@ class BAC:
     def write(self, f, endian):
         self.entries.sort(key=lambda entry: entry.index)
         self.header.num_entries = len(self.entries)
-        self.header.data_start = 0x60 # This will never change
+        self.header.data_start = 0x60  # This will never change
         f.write(struct.pack(endian + BAC_HEADER_BYTE_ORDER, *self.header))
         entry_offset = self.header.data_start
         sub_entry_offset = entry_offset + 16 * len(self.entries)

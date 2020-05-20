@@ -70,3 +70,16 @@ class BaseRecord(object):
 
     def get_readable_name(self):
         return self.get_name()
+
+
+def read_name(f, offset=None):
+    if offset:
+        f.seek(offset)
+    return ''.join(list(iter(lambda: f.read(1).decode(), '\x00')))
+
+
+def write_name(f, name, offset=None):
+    if offset:
+        f.seek(offset)
+    f.write(name.encode())
+    f.write(b'\x00')

@@ -2,7 +2,7 @@ import math
 from recordclass import recordclass
 import struct
 
-from pyxenoverse import BaseRecord
+from pyxenoverse import BaseRecord, read_name, write_name
 from pyxenoverse.esk.bone import Bone
 
 
@@ -84,7 +84,7 @@ class ESK(BaseRecord):
             f.seek(base_skeleton_address + self.bone_names_offset + i * 4)
             address = struct.unpack(endian + 'I', f.read(4))[0]
             f.seek(base_skeleton_address + address)
-            bone.read_name(f)
+            bone.name = read_name(f)
             # print("    Name - {}".format(pyxenoverse.name))
 
             # Read Skinning Matrices
@@ -142,7 +142,7 @@ class ESK(BaseRecord):
             f.write(struct.pack(endian + 'I', address))
             f.seek(base_skeleton_address + address)
             name_size += len(bone.name) + 1
-            bone.write_name(f)
+            write_name(bone.name)
 
             # Write Skinning Matrices
             f.seek(base_skeleton_address + self.skinning_matrix_offset + i * 48)

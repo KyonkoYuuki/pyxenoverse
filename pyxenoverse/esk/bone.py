@@ -38,13 +38,6 @@ class Bone(BaseRecord):
         #    self.index, self.parent_index, self.child_index, self.sibling_index, self.index_4))
         f.write(struct.pack(endian + ESK_BONE_INDICES_BYTE_ORDER, *self.data))
 
-    def read_name(self, f):
-        self.name = ''.join(list(iter(lambda: f.read(1).decode(), '\x00')))
-
-    def write_name(self, f):
-        f.write(self.name.encode())
-        f.write(b'\x00')
-
     def paste(self, source):
         self.name = source.name
         self.index = source.index
