@@ -1,17 +1,17 @@
 import struct
 from recordclass import recordclass
 
-from pyxenoverse import BaseRecord, read_name, write_name
+from pyxenoverse import BaseRecord, read_name
 
 BCSPhysics = recordclass('BCSPhysics', [
-    'u_00',
-    'u_02',
+    'model',
+    'model2',
     'texture',
+    'u_06',
     'u_08',
-    'u_0c',
     'u_10',
     'u_14',
-    'dyt',
+    'dyt_options',
     'part_hiding',
     'u_20',
     'name',
@@ -21,7 +21,7 @@ BCSPhysics = recordclass('BCSPhysics', [
     'esk_offset',
     'bone_offset',
     'scd_offset',
-    'ul_40'
+    'u_40'
 ])
 BCS_PHYSICS_SIZE = 72
 BCS_PHYSICS_BYTE_ORDER = 'HHHHQIIIII4sIIIIIIQ'
@@ -70,6 +70,8 @@ class Physics(BaseRecord):
         self.esk_offset = 0
         self.bone_offset = 0
         self.scd_offset = 0
+        if isinstance(self.name, str):
+            self.name = self.name.encode()
         f.write(struct.pack(endian + BCS_PHYSICS_BYTE_ORDER, *self.data))
 
         # Add names

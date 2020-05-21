@@ -11,11 +11,11 @@ BCSPart = recordclass('BCSPart', [
     'texture',
     'u_06',
     'u_08',
-    'ul_10',
+    'u_10',
     'num_color_selectors',
     'color_selector_offset',
-    'u_18',
-    'u_1c',
+    'dyt_options',
+    'part_hiding',
     'u_20',
     'f_24',
     'f_28',
@@ -109,6 +109,9 @@ class Part(BaseRecord):
 
     def write(self, f, names, endian):
         start_address = f.tell()
+
+        if isinstance(self.name, str):
+            self.name = self.name.encode()
 
         # Reset offsets to 0
         self.emd_offset = 0
