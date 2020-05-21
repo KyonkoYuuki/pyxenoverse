@@ -5,7 +5,7 @@ from pyxenoverse import write_name
 from pyxenoverse.bcs.part_set import PartSet
 from pyxenoverse.bcs.part_color import PartColor
 from pyxenoverse.bcs.body import Body
-from pyxenoverse.bcs.skeleton_data import SkeletonData
+from pyxenoverse.bcs.skeleton import Skeleton
 
 BCS_SIGNATURE = b'#BCS'
 BCSHeader = recordclass('BCSHeader', [
@@ -75,11 +75,9 @@ class BCS:
                 f.seek(self.header.part_sets_table_offset + i * 4)
                 offset = struct.unpack(endian + "I", f.read(4))[0]
                 part_set = PartSet()
-                if not offset:
-                    self.part_sets.append(None)
-                    continue
-                f.seek(offset)
-                part_set.read(f, endian)
+                if offset:
+                    f.seek(offset)
+                    part_set.read(f, endian)
                 self.part_sets.append(part_set)
 
         # Load part colors
@@ -89,11 +87,9 @@ class BCS:
                 f.seek(self.header.part_colors_table_offset + i * 4)
                 offset = struct.unpack(endian + "I", f.read(4))[0]
                 part_color = PartColor()
-                if not offset:
-                    self.part_colors.append(None)
-                    continue
-                f.seek(offset)
-                part_color.read(f, endian)
+                if offset:
+                    f.seek(offset)
+                    part_color.read(f, endian)
                 self.part_colors.append(part_color)
 
         # Load body
@@ -103,11 +99,9 @@ class BCS:
                 f.seek(self.header.bodies_table_offset + i * 4)
                 offset = struct.unpack(endian + "I", f.read(4))[0]
                 body = Body()
-                if not offset:
-                    self.bodies.append(None)
-                    continue
-                f.seek(offset)
-                body.read(f, endian)
+                if offset:
+                    f.seek(offset)
+                    body.read(f, endian)
                 self.bodies.append(body)
 
         # Load skeleton
@@ -116,7 +110,7 @@ class BCS:
         if self.header.skeleton_table_offset:
             f.seek(self.header.skeleton_table_offset)
             offset = struct.unpack(endian + "I", f.read(4))[0]
-            skeleton = SkeletonData()
+            skeleton = Skeleton()
             if offset:
                 f.seek(offset)
                 skeleton.read(f, endian)
@@ -127,11 +121,10 @@ class BCS:
             for i in range(self.header.num_additional_skeletons):
                 f.seek(self.header.additional_skeleton_table_offset)
                 offset = struct.unpack(endian + "I", f.read(4))[0]
-                skeleton = SkeletonData()
-                if not offset:
-                    continue
-                f.seek(offset)
-                skeleton.read(f, endian)
+                skeleton = Skeleton()
+                if offset:
+                    f.seek(offset)
+                    skeleton.read(f, endian)
                 self.skeletons.append(skeleton)
 
     def write(self, f, endian):
@@ -171,7 +164,7 @@ class BCS:
         for i, part_set in enumerate(self.part_sets):
             # print(f"index:{i}")
             f.seek(part_set_offset + 4 * i)
-            if not part_set:
+            if not part_set.parts:
                 f.write(struct.pack(endian + "I", 0))
                 continue
             f.write(struct.pack(endian + "I", offset_ptr))
@@ -181,7 +174,7 @@ class BCS:
         # Write part colors
         for i, part_color in enumerate(self.part_colors):
             f.seek(part_colors_offset + 4 * i)
-            if not part_color:
+            if not part_color.colors:
                 f.write(struct.pack(endian + "I", 0))
                 continue
             f.write(struct.pack(endian + "I", offset_ptr))
@@ -200,7 +193,7 @@ class BCS:
         # Bodies
         for i, body in enumerate(self.bodies):
             f.seek(bodies_offset + 4 * i)
-            if not body:
+            if not body.bone_scales:
                 f.write(struct.pack(endian + "I", 0))
                 continue
             f.write(struct.pack(endian + "I", offset_ptr))
@@ -226,6 +219,9 @@ class BCS:
         # Additional Skeletons
         for i, skeleton in enumerate(self.skeletons[1:]):
             f.seek(additional_skeletons_offset + 4 * i)
+            if not skeleton.bones:
+                f.write(struct.pack(endian + "I", 0))
+                continue
             f.write(struct.pack(endian + "I", offset_ptr))
             f.seek(offset_ptr)
             offset_ptr = skeleton.write(f, names, endian)

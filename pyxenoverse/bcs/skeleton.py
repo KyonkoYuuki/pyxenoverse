@@ -13,7 +13,7 @@ BCS_SKELETON_DATA_SIZE = 8
 BCS_SKELETON_DATA_BYTE_ORDER = 'HHI'
 
 
-class SkeletonData(BaseRecord):
+class Skeleton(BaseRecord):
     def __init__(self):
         super().__init__()
         self.bones = []
