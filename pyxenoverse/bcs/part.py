@@ -48,6 +48,7 @@ class Part(BaseRecord):
         self.emb_name = ''
         self.ean_name = ''
         self.data = BCSPart(*([0] * len(BCSPart.__fields__)))
+        self.name = ''
 
     def read(self, f, endian):
         address = f.tell()
