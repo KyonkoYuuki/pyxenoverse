@@ -37,6 +37,7 @@ class Physics(BaseRecord):
         self.bone_name = ''
         self.scd_name = ''
         self.data = BCSPhysics(*([0] * len(BCSPhysics.__fields__)))
+        self.name = ''
 
     def read(self, f, endian):
         address = f.tell()

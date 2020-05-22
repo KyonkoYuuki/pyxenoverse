@@ -34,9 +34,10 @@ class Color(BaseRecord):
     def __init__(self):
         super().__init__()
         self.data = BCSColor(*([0] * len(BCSColor.__fields__)))
-        self.color1 = []
-        self.color2 = []
-        self.color3 = []
+        self.color1 = [0, 0, 0, 255]
+        self.color2 = [0, 0, 0, 255]
+        self.color3 = [0, 0, 0, 255]
+        self.color4 = [0, 0, 0, 255]
 
     def read(self, f, endian):
         self.data = BCSColor(*struct.unpack(endian + BCS_COLOR_BYTE_ORDER, f.read(BCS_COLOR_SIZE)))
