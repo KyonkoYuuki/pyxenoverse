@@ -52,3 +52,10 @@ class PartColor(BaseRecord):
             colors.append((address, 0xc, self.colors))
 
         return f.tell()
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSPartColor(*other.data)
+        self.colors = other.colors.copy()
+        return True

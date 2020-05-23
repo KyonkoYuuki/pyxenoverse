@@ -41,3 +41,10 @@ class Body(BaseRecord):
             bone_scales.append((address, 0x4, self.bone_scales))
 
         return f.tell()
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSBody(*other.data)
+        self.bone_scales = other.bone_scales.copy()
+        return True

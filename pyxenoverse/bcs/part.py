@@ -165,3 +165,45 @@ class Part(BaseRecord):
         f.write(struct.pack(endian + BCS_PART_BYTE_ORDER, *self.data))
         f.seek(end_address)
 
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSPart(*other.data)
+        self.color_selectors = other.color_selectors.copy()
+        self.physics = other.physics.copy()
+        self.unk3 = other.unk3.copy()
+
+        self.emd_name = other.emd_name
+        self.emm_name = other.emm_name
+        self.emb_name = other.emb_name
+        self.ean_name = other.ean_name
+
+        # Replace 3 letter names with current one
+        if self.name and other.name:
+            self.emd_name = self.emd_name.replace(other.name, self.name)
+            self.emm_name = self.emm_name.replace(other.name, self.name)
+            self.emb_name = self.emb_name.replace(other.name, self.name)
+            self.ean_name = self.ean_name.replace(other.name, self.name)
+        return True
+
+    def paste_color_selectors(self, other, append):
+        if not isinstance(other, list):
+            return False
+        if not isinstance(other[0], ColorSelector):
+            return False
+
+        if append:
+            self.color_selectors.extend(other.copy())
+        else:
+            self.color_selectors = other.copy()
+
+    def paste_physics(self, other, append):
+        if not isinstance(other, list):
+            return False
+        if not isinstance(other[0], Physics):
+            return False
+
+        if append:
+            self.color_selectors.extend(other.copy())
+        else:
+            self.color_selectors = other.copy()

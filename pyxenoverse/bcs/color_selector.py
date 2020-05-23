@@ -22,3 +22,9 @@ class ColorSelector(BaseRecord):
 
     def write(self, f, endian):
         f.write(struct.pack(endian + BCS_COLOR_SELECTOR_BYTE_ORDER, *self.data))
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSColorSelector(*other.data)
+        return True

@@ -88,3 +88,25 @@ class Physics(BaseRecord):
             names.append((address, 0x38, self.bone_name))
         if self.scd_name:
             names.append((address, 0x3c, self.scd_name))
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSPhysics(*other.data)
+        self.emd_name = other.emd_name
+        self.emm_name = other.emm_name
+        self.emb_name = other.emb_name
+        self.esk_name = other.esk_name
+        self.bone_name = other.bone_name
+        self.scd_name = other.scd_name
+
+        # Replace 3 letter names with current one
+        if self.name and other.name:
+            self.emd_name = self.emd_name.replace(other.name, self.name)
+            self.emm_name = self.emm_name.replace(other.name, self.name)
+            self.emb_name = self.emb_name.replace(other.name, self.name)
+            self.esk_name = self.esk_name.replace(other.name, self.name)
+            self.bone_name = self.bone_name.replace(other.name, self.name)
+            self.scd_name = self.scd_name.replace(other.name, self.name)
+        return True
+

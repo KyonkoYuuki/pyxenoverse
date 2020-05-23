@@ -80,3 +80,10 @@ class PartSet(BaseRecord):
         f.seek(start_address)
         f.write(struct.pack(endian + BCS_PART_SET_BYTE_ORDER, *self.data))
         return end_address
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSPartSet(*other.data)
+        self.parts = other.parts.copy()
+        return True

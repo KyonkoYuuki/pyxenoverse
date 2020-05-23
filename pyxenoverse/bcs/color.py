@@ -58,3 +58,13 @@ class Color(BaseRecord):
         for i in range(len(self.data)):
             self.data[i] /= 255.0
         f.write(struct.pack(endian + BCS_COLOR_BYTE_ORDER, *self.data))
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSColor(*other.data)
+        self.color1 = other.color1.copy()
+        self.color2 = other.color2.copy()
+        self.color3 = other.color3.copy()
+        self.color4 = other.color4.copy()
+        return True

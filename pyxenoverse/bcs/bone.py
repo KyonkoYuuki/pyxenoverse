@@ -53,3 +53,10 @@ class Bone(BaseRecord):
         # Add name
         if self.name:
             names.append((address, 0x30, self.name))
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        self.data = BCSBone(*other.data)
+        self.name = other.name
+        return True
