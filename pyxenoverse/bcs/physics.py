@@ -42,6 +42,7 @@ class Physics(BaseRecord):
     def read(self, f, endian):
         address = f.tell()
         self.data = BCSPhysics(*struct.unpack(endian + BCS_PHYSICS_BYTE_ORDER, f.read(BCS_PHYSICS_SIZE)))
+        self.name = self.name.decode()
         # print(self.data)
         if self.emd_offset:
             self.emd_name = read_name(f, address + self.emd_offset)

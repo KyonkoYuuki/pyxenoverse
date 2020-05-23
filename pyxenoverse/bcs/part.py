@@ -53,10 +53,10 @@ class Part(BaseRecord):
     def read(self, f, endian):
         address = f.tell()
         self.data = BCSPart(*struct.unpack(endian + BCS_PART_BYTE_ORDER, f.read(BCS_PART_SIZE)))
+        self.name = self.name.decode()
         # print(self.data)
         if self.emd_offset:
             self.emd_name = read_name(f, address + self.emd_offset)
-            # print(f'emd: {self.emd_name}')
         if self.emm_offset:
             self.emm_name = read_name(f, address + self.emm_offset)
             # print(f'emm: {self.emm_name}')
@@ -204,6 +204,6 @@ class Part(BaseRecord):
             return False
 
         if append:
-            self.color_selectors.extend(other.copy())
+            self.physics.extend(other.copy())
         else:
-            self.color_selectors = other.copy()
+            self.physics = other.copy()

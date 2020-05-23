@@ -1,4 +1,5 @@
 import collections
+from functools import reduce
 
 
 def merge_dict(d1, d2):
@@ -65,11 +66,17 @@ class BaseRecord(object):
     def __hash__(self):
         return hash(self.__dict__.values())
 
-    def get_name(self):
-        return type(self).__name__
+    @classmethod
+    def get_name(cls):
+        return cls.__name__
 
-    def get_readable_name(self):
-        return self.get_name()
+    @classmethod
+    def get_readable_name(cls):
+        return reduce(lambda x, y: x + (' ' if y.isupper() else '') + y, cls.get_name())
+
+    @classmethod
+    def get_func_name(cls):
+        return reduce(lambda x, y: x + ('_' if y.isupper() else '') + y, cls.get_name()).lower()
 
 
 def read_name(f, offset=None):
