@@ -57,5 +57,6 @@ class PartColor(BaseRecord):
         if type(self) != type(other):
             return False
         self.data = BCSPartColor(*other.data)
+        self.name = other.name
         self.colors = other.colors.copy()
         return True
