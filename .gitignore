@@ -4,3 +4,9 @@ dist*
 ya*
 Ya*
 .idea/
+*.bcs
+*.bcm
+*.bdm
+*.bac
+*.ean
+*.xml
