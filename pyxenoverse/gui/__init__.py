@@ -13,3 +13,29 @@ def add_entry(func):
         panel.sizer.Add(control, 0, wx.LEFT | wx.TOP, 10)
         return control
     return entry_wrapper
+
+
+def _get_parent(list_ctrl, item):
+    parent = list_ctrl.GetItemParent(item)
+    if parent == list_ctrl.GetRootItem():
+        return None
+    next_item = list_ctrl.GetNextSibling(parent)
+    if not next_item.IsOk():
+        next_item = _get_parent(list_ctrl, parent)
+    return next_item
+
+
+def get_next_item(list_ctrl, item):
+    next_item = list_ctrl.GetFirstChild(item)[0]
+    if not next_item.IsOk():
+        next_item = list_ctrl.GetNextSibling(item)
+    if not next_item.IsOk():
+        parent = _get_parent(list_ctrl, item)
+        if parent:
+            next_item = parent
+    return next_item
+
+
+def get_first_item(list_ctrl):
+    root = list_ctrl.GetRootItem()
+    return list_ctrl.GetFirstChild(root)
