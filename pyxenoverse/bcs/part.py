@@ -1,9 +1,12 @@
 import struct
+import re
 from recordclass import recordclass
 
 from pyxenoverse import BaseRecord, read_name
 from pyxenoverse.bcs.color_selector import ColorSelector, BCS_COLOR_SELECTOR_SIZE
 from pyxenoverse.bcs.physics import Physics, BCS_PHYSICS_SIZE
+
+from xml.etree.ElementTree import SubElement, Comment
 
 BCSPart = recordclass('BCSPart', [
     'model',
@@ -33,6 +36,18 @@ BCSPart = recordclass('BCSPart', [
     'num_unk3',
     'unk3_offset'
 ])
+
+BCS_PART_XML_TRANSLATION = {
+    'dyt_options': 'u_18',
+    'part_hiding': 'u_1c'
+}
+
+BCS_PART_XML_IGNORE = [
+    'u_06',
+    'u_08',
+    'u_48',
+    'u_50'
+]
 BCS_PART_SIZE = 88
 BCS_PART_BYTE_ORDER = 'HHHHQHHIIIIffII4sIIIIHHIHHI'
 
@@ -53,7 +68,7 @@ class Part(BaseRecord):
     def read(self, f, endian):
         address = f.tell()
         self.data = BCSPart(*struct.unpack(endian + BCS_PART_BYTE_ORDER, f.read(BCS_PART_SIZE)))
-        self.name = self.name.decode()
+        self.name = re.sub(r'[^\x20-\x7f]', '', self.name.decode())
         # print(self.data)
         if self.emd_offset:
             self.emd_name = read_name(f, address + self.emd_offset)
@@ -207,3 +222,30 @@ class Part(BaseRecord):
             self.physics.extend(other.copy())
         else:
             self.physics = other.copy()
+
+    def generate_xml(self, root, part_colors=None):
+        for field_name in self.data.__fields__:
+            if 'num' in field_name or 'offset' in field_name:
+                continue
+            if field_name in BCS_PART_XML_IGNORE:
+                continue
+            xml_name = BCS_PART_XML_TRANSLATION.get(field_name, field_name).upper()
+            if xml_name.startswith("U_"):
+                value = hex(self[field_name])
+            else:
+                value = str(self[field_name])
+            SubElement(root, xml_name, value=value)
+
+        # Add file names
+        root.append(Comment("MODEL, EMM, EMB, EAN"))
+        SubElement(root, "FILES", value=f'{self.emd_name or "NULL"}, {self.emm_name or "NULL"}, '
+                                        f'{self.emb_name or "NULL"}, {self.ean_name or "NULL"}')
+
+        # Add Color Selectors
+        for cs in self.color_selectors:
+            cs.generate_xml(root, part_colors)
+
+        # Add Physics
+        for p in self.physics:
+            p.generate_xml(root)
+

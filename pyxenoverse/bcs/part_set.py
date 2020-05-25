@@ -4,6 +4,9 @@ from recordclass import recordclass
 from pyxenoverse import BaseRecord
 from pyxenoverse.bcs.part import Part
 
+from xml.etree.ElementTree import Element, SubElement, Comment, tostring
+import xml.dom.minidom
+
 BCSPartSet = recordclass('BCSPartSet', [
     'u_00',
     'u_04',
@@ -87,3 +90,18 @@ class PartSet(BaseRecord):
         self.data = BCSPartSet(*other.data)
         self.parts = other.parts.copy()
         return True
+
+    def generate_xml(self, part_colors=None):
+        root = Element("PartSet")
+        for idx, part_name in enumerate(BCS_PART_LIST):
+            part_element = SubElement(root, "Part", idx=str(idx))
+            part_element.append(Comment(part_name.capitalize()))
+            if part_name not in self.parts:
+                part_element.append(Comment("This entry is empty."))
+            else:
+                part = self.parts[part_name]
+                part.generate_xml(part_element, part_colors)
+        print(tostring(root))
+        dom = xml.dom.minidom.parseString(tostring(root))
+        declaration = xml.dom.minidom.Document().toxml()
+        return dom.toprettyxml()[len(declaration) + 1:]

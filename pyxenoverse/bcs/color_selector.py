@@ -3,6 +3,8 @@ from recordclass import recordclass
 
 from pyxenoverse import BaseRecord
 
+from xml.etree.ElementTree import SubElement, Comment
+
 BCSColorSelector = recordclass('BCSColorSelector', [
     'part_colors',
     'color'
@@ -28,3 +30,25 @@ class ColorSelector(BaseRecord):
             return False
         self.data = BCSColorSelector(*other.data)
         return True
+
+    def generate_xml(self, root, part_colors=None):
+        color_selector = SubElement(root, "ColorSelector")
+        name = ''
+
+        # Part Colors
+        if part_colors:
+            name = part_colors[self.part_colors].name
+            color_selector.append(Comment(name))
+        SubElement(color_selector, "PART_COLORS", value=str(self.part_colors))
+
+        # Color
+        if part_colors:
+            color = part_colors[self.part_colors].colors[self.color]
+            if name == 'eye_':
+                rgba = color.color4
+            else:
+                rgba = color.color1
+
+            hex_color = f'#{rgba[0]:02x}{rgba[1]:02x}{rgba[2]:02x}'
+            color_selector.append(f"Color preview: {hex_color}")
+        SubElement(color_selector, "COLOR", value=str(self.color))

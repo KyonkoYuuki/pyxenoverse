@@ -22,7 +22,9 @@ BCSHeader = recordclass('BCSHeader', [
     'bodies_table_offset',
     'additional_skeleton_table_offset',
     'skeleton_table_offset',
-    'u_2c',
+    'race',
+    'gender',
+    'u_2e',
     'f_30',
     'f_34',
     'f_38',
@@ -32,7 +34,7 @@ BCSHeader = recordclass('BCSHeader', [
     'f_48',
 ])
 BCS_HEADER_SIZE = 72
-BCS_HEADER_BYTE_ORDER = 'HHIHHHHIIIIIIIfffffff'
+BCS_HEADER_BYTE_ORDER = 'HHIHHHHIIIIIIBBHfffffff'
 
 
 class BCS:

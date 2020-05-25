@@ -1,7 +1,10 @@
-import struct
+import re
 from recordclass import recordclass
+import struct
 
 from pyxenoverse import BaseRecord, read_name
+
+from xml.etree.ElementTree import SubElement, Comment
 
 BCSPhysics = recordclass('BCSPhysics', [
     'model',
@@ -26,6 +29,19 @@ BCSPhysics = recordclass('BCSPhysics', [
 BCS_PHYSICS_SIZE = 72
 BCS_PHYSICS_BYTE_ORDER = 'HHHHQIIIII4sIIIIIIQ'
 
+BCS_PHYSICS_XML_TRANSLATION = {
+    'model': 'u_00',
+    'model2': 'u_02',
+    'texture': 'u_04',
+    'dyt_options': 'u_18',
+    'part_hiding': 'u_1c'
+}
+
+BCS_PHYSICS_XML_IGNORE = [
+    'u_06',
+    'u_08',
+    'u_40'
+]
 
 class Physics(BaseRecord):
     def __init__(self):
@@ -42,7 +58,7 @@ class Physics(BaseRecord):
     def read(self, f, endian):
         address = f.tell()
         self.data = BCSPhysics(*struct.unpack(endian + BCS_PHYSICS_BYTE_ORDER, f.read(BCS_PHYSICS_SIZE)))
-        self.name = self.name.decode()
+        self.name = re.sub(r'[^\x20-\x7f]', '', self.name.decode())
         # print(self.data)
         if self.emd_offset:
             self.emd_name = read_name(f, address + self.emd_offset)
@@ -111,3 +127,22 @@ class Physics(BaseRecord):
             self.scd_name = self.scd_name.replace(other.name, self.name)
         return True
 
+    def generate_xml(self, root):
+        physics = SubElement(root, "PhysicsObject")
+        for field_name in self.data.__fields__:
+            if 'num' in field_name or 'offset' in field_name:
+                continue
+            if field_name in BCS_PHYSICS_XML_IGNORE:
+                continue
+            xml_name = BCS_PHYSICS_XML_TRANSLATION.get(field_name, field_name).upper()
+            if xml_name.startswith("U_"):
+                value = hex(self[field_name])
+            else:
+                value = str(self[field_name])
+            SubElement(physics, xml_name, value=value)
+
+        # Add file names
+        physics.append(Comment("MODEL, EMM, EMB, ESK, BONE, SCD"))
+        SubElement(physics, "FILES", value=f'{self.emd_name or "NULL"}, {self.emm_name or "NULL"}, '
+                                           f'{self.emb_name or "NULL"}, {self.esk_name or "NULL"}, '
+                                           f'{self.bone_name or "NULL"}, {self.scd_name or "NULL"}')
