@@ -49,10 +49,10 @@ class BCS:
 
     def load(self, filename):
         with open(filename, 'rb') as f:
-            if f.read(4) != BCS_SIGNATURE:
-                print("Not a valid BCS file")
-                return False
-            self.endian = '<' if f.read(2) == b'\xFE\xFF' else '>'
+            self.endian = '<'
+            if f.read(4) == BCS_SIGNATURE:
+                if f.read(2) != b'\xFE\xFF':
+                    self.endian = '>'
             f.seek(4)
             self.read(f, self.endian)
         self.filename = filename
@@ -131,6 +131,7 @@ class BCS:
 
     def write(self, f, endian):
         # Write table lengths in header
+        self.header.endianess_check = 0xFFFE
         self.header.header_size = 0x4c  # This never changes
         self.header.num_part_sets = len(self.part_sets)
         self.header.num_part_colors = len(self.part_colors)
