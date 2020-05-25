@@ -3,6 +3,7 @@ from recordclass import recordclass
 import struct
 
 from pyxenoverse import BaseRecord, read_name
+from pyxenoverse.bcs.utils import get_costume_creator_name
 
 from xml.etree.ElementTree import SubElement, Comment
 
@@ -26,8 +27,6 @@ BCSPhysics = recordclass('BCSPhysics', [
     'scd_offset',
     'u_40'
 ])
-BCS_PHYSICS_SIZE = 72
-BCS_PHYSICS_BYTE_ORDER = 'HHHHQIIIII4sIIIIIIQ'
 
 BCS_PHYSICS_XML_TRANSLATION = {
     'model': 'u_00',
@@ -42,6 +41,17 @@ BCS_PHYSICS_XML_IGNORE = [
     'u_08',
     'u_40'
 ]
+BCS_PHYSICS_XML_NAMES = [
+    'emd_name',
+    'emm_name',
+    'emb_name',
+    'esk_name',
+    'scd_name'
+]
+
+BCS_PHYSICS_SIZE = 72
+BCS_PHYSICS_BYTE_ORDER = 'HHHHQIIIII4sIIIIIIQ'
+
 
 class Physics(BaseRecord):
     def __init__(self):
@@ -137,12 +147,17 @@ class Physics(BaseRecord):
             xml_name = BCS_PHYSICS_XML_TRANSLATION.get(field_name, field_name).upper()
             if xml_name.startswith("U_"):
                 value = hex(self[field_name])
+            elif field_name.startswith("model") and self[field_name] < 10000:
+                value = "10000"
             else:
                 value = str(self[field_name])
             SubElement(physics, xml_name, value=value)
 
         # Add file names
         physics.append(Comment("MODEL, EMM, EMB, ESK, BONE, SCD"))
-        SubElement(physics, "FILES", value=f'{self.emd_name or "NULL"}, {self.emm_name or "NULL"}, '
-                                           f'{self.emb_name or "NULL"}, {self.esk_name or "NULL"}, '
-                                           f'{self.bone_name or "NULL"}, {self.scd_name or "NULL"}')
+        model_names = {}
+        for name in BCS_PHYSICS_XML_NAMES:
+            model_names[name] = get_costume_creator_name(self[name])
+        SubElement(physics, "FILES", value=f'{model_names["emd_name"] or "NULL"}, {model_names["emm_name"] or "NULL"}, '
+                                           f'{model_names["emb_name"] or "NULL"}, {model_names["esk_name"] or "NULL"}, '
+                                           f'{self.bone_name or "NULL"}, {model_names["scd_name"] or "NULL"}')

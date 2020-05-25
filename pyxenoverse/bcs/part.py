@@ -3,6 +3,7 @@ import re
 from recordclass import recordclass
 
 from pyxenoverse import BaseRecord, read_name
+from pyxenoverse.bcs.utils import get_costume_creator_name
 from pyxenoverse.bcs.color_selector import ColorSelector, BCS_COLOR_SELECTOR_SIZE
 from pyxenoverse.bcs.physics import Physics, BCS_PHYSICS_SIZE
 
@@ -48,6 +49,12 @@ BCS_PART_XML_IGNORE = [
     'u_48',
     'u_50'
 ]
+BCS_PART_XML_NAMES = [
+    'emd_name',
+    'emm_name',
+    'emb_name',
+]
+
 BCS_PART_SIZE = 88
 BCS_PART_BYTE_ORDER = 'HHHHQHHIIIIffII4sIIIIHHIHHI'
 
@@ -232,14 +239,20 @@ class Part(BaseRecord):
             xml_name = BCS_PART_XML_TRANSLATION.get(field_name, field_name).upper()
             if xml_name.startswith("U_"):
                 value = hex(self[field_name])
+            elif field_name.startswith("model") and self[field_name] < 10000:
+                value = "10000"
             else:
                 value = str(self[field_name])
             SubElement(root, xml_name, value=value)
 
         # Add file names
         root.append(Comment("MODEL, EMM, EMB, EAN"))
-        SubElement(root, "FILES", value=f'{self.emd_name or "NULL"}, {self.emm_name or "NULL"}, '
-                                        f'{self.emb_name or "NULL"}, {self.ean_name or "NULL"}')
+        model_names = {}
+        for name in BCS_PART_XML_NAMES:
+            model_names[name] = get_costume_creator_name(self[name])
+
+        SubElement(root, "FILES", value=f'{model_names["emd_name"] or "NULL"}, {model_names["emm_name"] or "NULL"}, '
+                                        f'{model_names["emb_name"] or "NULL"}, {self.ean_name or "NULL"}')
 
         # Add Color Selectors
         for cs in self.color_selectors:
