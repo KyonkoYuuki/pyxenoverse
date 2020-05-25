@@ -50,5 +50,5 @@ class ColorSelector(BaseRecord):
                 rgba = color.color1
 
             hex_color = f'#{rgba[0]:02x}{rgba[1]:02x}{rgba[2]:02x}'
-            color_selector.append(f"Color preview: {hex_color}")
+            color_selector.append(Comment(f"Color preview: {hex_color}"))
         SubElement(color_selector, "COLOR", value=str(self.color))
