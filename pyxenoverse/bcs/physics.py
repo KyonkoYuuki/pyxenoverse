@@ -158,6 +158,6 @@ class Physics(BaseRecord):
         model_names = {}
         for name in BCS_PHYSICS_XML_NAMES:
             model_names[name] = get_costume_creator_name(self[name])
-        SubElement(physics, "FILES", value=f'{model_names["emd_name"] or "NULL"}, {model_names["emm_name"] or "NULL"}, '
+        SubElement(physics, "STR_28", value=f'{model_names["emd_name"] or "NULL"}, {model_names["emm_name"] or "NULL"}, '
                                            f'{model_names["emb_name"] or "NULL"}, {model_names["esk_name"] or "NULL"}, '
                                            f'{self.bone_name or "NULL"}, {model_names["scd_name"] or "NULL"}')
