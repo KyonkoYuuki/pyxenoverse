@@ -17,7 +17,7 @@ class Type22(BaseType):
     type = 22
     bac_record = BACType22
     byte_order = 'HHHHIf'
-    size = 48
+    size = 16
 
     def __init__(self, index):
         super().__init__(index)
