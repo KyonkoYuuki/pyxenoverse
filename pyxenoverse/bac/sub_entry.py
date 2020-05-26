@@ -108,7 +108,7 @@ class SubEntry(BaseRecord):
             f.seek(item_offset)
             item.write(f, endian)
             # print("{}: {}".format(item.__class__.__name__, item_offset))
-            item_offset += item.size
+            item_offset += item.get_size(type17_small=False)
         return item_offset
 
     def paste(self, other, changed_values={}, copy_items=True):
