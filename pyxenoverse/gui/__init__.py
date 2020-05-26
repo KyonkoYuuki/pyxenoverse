@@ -39,3 +39,15 @@ def get_next_item(list_ctrl, item):
 def get_first_item(list_ctrl):
     root = list_ctrl.GetRootItem()
     return list_ctrl.GetFirstChild(root)
+
+
+def get_item_index(list_ctrl, item):
+    parent = list_ctrl.GetItemParent(item)
+    child, _ = list_ctrl.GetFirstChild(parent)
+    index = 0
+    while child.IsOk():
+        if child == item:
+            return index
+        child = list_ctrl.GetNextSibling(child)
+        index += 1
+    return -1
