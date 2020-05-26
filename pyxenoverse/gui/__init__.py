@@ -10,7 +10,7 @@ def add_entry(func):
             panel.sizer.Add(wx.StaticText(panel, -1, label), 0, wx.ALIGN_CENTER_VERTICAL | wx.LEFT | wx.TOP, 10)
             kwargs['name'] = label
         control = func(*args, **kwargs)
-        panel.sizer.Add(control, 0, wx.LEFT | wx.TOP, 10)
+        panel.sizer.Add(control, 0, wx.LEFT | wx.TOP, 5)
         return control
     return entry_wrapper
 

@@ -24,12 +24,12 @@ BCMEntry = recordclass('BCMEntry', [
     'activator_state', # 0x1C
     'bac_entry_primary', # 0x20
     'bac_entry_charge', # 0x22
-    'bac_entry_unknown',
+    'u_24',
     'bac_entry_user_connect', # 0x26
     'bac_entry_victim_connect',
-    'bac_entry_airborne', # 0x2A
+    'bac_entry_airborne',
+    'bac_entry_unknown',
     'random_flag',
-    'u_2e',
     'sibling',
     'child',
     'parent',
