@@ -26,14 +26,21 @@ class ThrowHandler(BaseType):
     bac_record = BACThrowHandler
     byte_order = 'HHHHHHHHHH'
     size = 20
+    displacement_size = 12
 
     def __init__(self, index):
         super().__init__(index)
 
+    def get_size(self, type17_small):
+        size = self.size
+        if not type17_small:
+            size += self.displacement_size
+        return size
+
     def read(self, f, endian, type17_small):
         self.data = self.bac_record(*struct.unpack(endian + self.byte_order, f.read(self.size)), 0.0, 0.0, 0.0)
         if not type17_small:
-            self.data[10:] = struct.unpack(endian + 'fff', f.read(12))
+            self.data[10:] = struct.unpack(endian + 'fff', f.read(self.displacement_size))
 
     def write(self, f, endian):
         f.write(struct.pack(endian + self.byte_order + 'fff', *self.data))

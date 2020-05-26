@@ -89,7 +89,7 @@ class SubEntry(BaseRecord):
     def read_items(self, f, endian, type17_small):
         for i in range(self.num):
             item = ITEM_TYPES[self.type](i)
-            item_offset = self.offset + item.size * i
+            item_offset = self.offset + item.get_size(type17_small) * i
             # print("{}: {}".format(item.__class__.__name__, item_offset))
             f.seek(item_offset)
             item.read(f, endian, type17_small)
