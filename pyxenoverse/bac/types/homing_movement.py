@@ -1,4 +1,5 @@
 from recordclass import recordclass
+import struct
 
 from pyxenoverse.bac.types import BaseType
 
@@ -30,3 +31,25 @@ class HomingMovement(BaseType):
 
     def __init__(self, index):
         super().__init__(index)
+
+    def read(self, f, endian, _):
+        address = f.tell()
+        super().read(f, endian, _)
+
+        # Read the speed modifier as a float
+        if self.horizontal_homing_arc_direction == 0x7:
+            f.seek(address + 12)
+            self.speed_modifier = struct.unpack(endian + "f", f.read(4))[0]
+
+    def write(self, f, endian):
+        address = f.tell()
+        speed_modifier_float = float(self.speed_modifier)
+
+        # Write speed modifier as an int first
+        self.speed_modifier = int(self.speed_modifier)
+        super().write(f, endian)
+
+        # Write it as a float
+        if self.horizontal_homing_arc_direction == 0x7:
+            f.seek(address + 12)
+            f.write(struct.pack(endian + "f", speed_modifier_float))
