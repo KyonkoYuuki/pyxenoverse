@@ -142,7 +142,7 @@ class ESK(BaseRecord):
             f.write(struct.pack(endian + 'I', address))
             f.seek(base_skeleton_address + address)
             name_size += len(bone.name) + 1
-            write_name(bone.name)
+            write_name(f, bone.name)
 
             # Write Skinning Matrices
             f.seek(base_skeleton_address + self.skinning_matrix_offset + i * 48)
