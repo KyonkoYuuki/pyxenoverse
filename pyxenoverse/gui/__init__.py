@@ -1,6 +1,9 @@
 from functools import wraps
+import os
 import time
+from shutil import copy
 from threading import Thread
+from datetime import datetime
 
 import wx
 
@@ -47,6 +50,25 @@ def add_entry(func):
         panel.sizer.Add(control, 0, wx.LEFT | wx.TOP, 5)
         return control
     return entry_wrapper
+
+
+def create_backup(dirname, filename):
+    path = os.path.join(dirname, filename)
+    if not os.path.exists(path):
+        return
+
+    backup_dir = os.path.join(dirname, '.backups')
+    try:
+        os.mkdir(backup_dir)
+    except FileExistsError:
+        pass
+
+    backup_date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    fileparts = filename.split('.')
+    fileparts.insert(1, backup_date)
+    backup_path = os.path.join(backup_dir, '.'.join(fileparts))
+
+    copy(path, backup_path)
 
 
 def _get_parent(list_ctrl, item):
