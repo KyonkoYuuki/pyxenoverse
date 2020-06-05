@@ -136,7 +136,7 @@ class BCS:
         self.header.num_part_sets = len(self.part_sets)
         self.header.num_part_colors = len(self.part_colors)
         self.header.num_bodies = len(self.bodies)
-        self.header.num_additional_skeletons = len(self.skeletons) - 1
+        self.header.num_additional_skeletons = len(self.skeletons) - 1 if self.skeletons else 0
 
         # Get offsets
         part_set_offset = 0x4c  # This will never change
