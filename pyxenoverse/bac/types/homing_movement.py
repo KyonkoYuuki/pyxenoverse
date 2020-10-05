@@ -51,5 +51,6 @@ class HomingMovement(BaseType):
 
         # Write it as a float
         if self.horizontal_homing_arc_direction == 0x7:
+            self.speed_modifier = speed_modifier_float
             f.seek(address + 12)
-            f.write(struct.pack(endian + "f", speed_modifier_float))
+            f.write(struct.pack(endian + "f", self.speed_modifier))
