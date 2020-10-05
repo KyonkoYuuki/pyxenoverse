@@ -2,7 +2,7 @@ from recordclass import recordclass
 
 from pyxenoverse.bac.types import BaseType
 
-BACType26 = recordclass('BACType26', [
+BACExtendedCameraControl = recordclass('BACExtendedCameraControl', [
     'start_time',
     'duration',
     'u_04',
@@ -29,9 +29,9 @@ BACType26 = recordclass('BACType26', [
 
 
 # Type 26
-class Type26(BaseType):
+class ExtendedCameraControl(BaseType):
     type = 26
-    bac_record = BACType26
+    bac_record = BACExtendedCameraControl
     byte_order = 'HHHHIIIIIIIIIIIIIIIIII'
     size = 80
 

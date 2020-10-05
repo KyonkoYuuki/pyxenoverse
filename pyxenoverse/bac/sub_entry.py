@@ -21,7 +21,7 @@ from pyxenoverse.bac.types.animation_modification import AnimationModification
 from pyxenoverse.bac.types.transform_control import TransformControl
 from pyxenoverse.bac.types.screen_effect import ScreenEffect
 from pyxenoverse.bac.types.throw_handler import ThrowHandler
-from pyxenoverse.bac.types.type18 import Type18
+from pyxenoverse.bac.types.physics import Physics
 from pyxenoverse.bac.types.aura_effect import AuraEffect
 from pyxenoverse.bac.types.homing_movement import HomingMovement
 from pyxenoverse.bac.types.eye_movement import EyeMovement
@@ -29,7 +29,8 @@ from pyxenoverse.bac.types.type22 import Type22
 from pyxenoverse.bac.types.transparency_effect import TransparencyEffect
 from pyxenoverse.bac.types.dual_skill_data import DualSkillData
 from pyxenoverse.bac.types.charge_attack_parameters import ChargeAttackParameters
-from pyxenoverse.bac.types.type26 import Type26
+from pyxenoverse.bac.types.extended_camera_control import ExtendedCameraControl
+from pyxenoverse.bac.types.effect_property_control import EffectPropertyControl
 
 ITEM_TYPES = {
     0: Animation,
@@ -50,7 +51,7 @@ ITEM_TYPES = {
     15: TransformControl,
     16: ScreenEffect,
     17: ThrowHandler,
-    18: Type18,
+    18: Physics,
     19: AuraEffect,
     20: HomingMovement,
     21: EyeMovement,
@@ -58,7 +59,8 @@ ITEM_TYPES = {
     23: TransparencyEffect,
     24: DualSkillData,
     25: ChargeAttackParameters,
-    26: Type26,
+    26: ExtendedCameraControl,
+    27: EffectPropertyControl,
 }
 
 BACSubEntry = recordclass('BACSubEntry', [
