@@ -8,13 +8,13 @@ BACEffectPropertyControl = recordclass('BACEffectPropertyControl', [
     'u_04',
     'character_type',
     'skill_id',
-    'u_0a',
-    'u_0c',
-    'u_0e',
     'skill_type',
     'effect_id',
     'effect_duration',
-    'flags'
+    'flags',
+    'u_12',
+    'u_14',
+    'u_16',
 ])
 
 
