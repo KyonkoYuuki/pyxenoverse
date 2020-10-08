@@ -82,7 +82,8 @@ class BaseRecord(object):
 def read_name(f, offset=None):
     if offset:
         f.seek(offset)
-    return ''.join(list(iter(lambda: f.read(1).decode(), '\x00')))
+    name = b''.join(list(iter(lambda: f.read(1), b'\x00'))).decode()
+    return name
 
 
 def write_name(f, name, offset=None):

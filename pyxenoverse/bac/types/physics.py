@@ -2,7 +2,7 @@ from recordclass import recordclass
 
 from pyxenoverse.bac.types import BaseType
 
-BACPhysics = recordclass('Physics', [
+BACPhysics = recordclass('BACPhysics', [
     'start_time',
     'duration',
     'u_04',
