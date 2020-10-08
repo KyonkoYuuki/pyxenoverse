@@ -3,9 +3,9 @@ import struct
 from recordclass import recordclass
 
 from pyxenoverse import BaseRecord
-from pyxenoverse.bsa.collision import Collision
-from pyxenoverse.bsa.expiration import Expiration
-from pyxenoverse.bsa.sub_entry import SubEntry
+from pyxenoverse.bsa.collision import Collision, BSA_COLLISION_SIZE
+from pyxenoverse.bsa.expiration import Expiration, BSA_EXPIRATION_SIZE
+from pyxenoverse.bsa.sub_entry import SubEntry, BSA_SUB_ENTRY_SIZE
 
 BSAEntry = recordclass('BSAEntry', [
     'i_00',
@@ -35,7 +35,7 @@ BSA_ENTRY_HEADER_BYTE_ORDER = 'IHHIIBBIHHHHHHHIIII'
 
 
 class Entry(BaseRecord):
-    def __init__(self, index=0):
+    def __init__(self, index):
         super().__init__()
         self.index = index
         self.collisions = []
@@ -66,9 +66,39 @@ class Entry(BaseRecord):
             sub_entry.read_items(f, endian)
 
     def write(self, f, endian):
-        f.write(struct.pack(endian + 'I', *self.data))
+        offset = BSA_ENTRY_HEADER_SIZE
+        self.collision_count = len(self.collisions)
+        self.expiration_count = len(self.expirations)
+        self.sub_entry_count = len(self.sub_entries)
+
+        self.collision_offset = offset if self.collision_count else 0
+        offset += BSA_COLLISION_SIZE * self.collision_count
+
+        self.expiration_offset = offset if self.expiration_count else 0
+        offset += BSA_EXPIRATION_SIZE * self.expiration_count
+
+        self.sub_entry_offset = offset if self.sub_entry_count else 0
+
+        f.write(struct.pack(endian + BSA_ENTRY_HEADER_BYTE_ORDER, *self.data))
+        for collision in self.collisions:
+            collision.write(f, endian)
+        for expiration in self.expirations:
+            expiration.write(f, endian)
+
+        if not self.sub_entry_count:
+            return
+        current_offset = sub_entry_offset = f.tell()
+        f.seek(current_offset + self.sub_entry_count * BSA_SUB_ENTRY_SIZE)
+        for sub_entry in self.sub_entries:
+            sub_entry.write_items(f, endian, sub_entry_offset)
+            sub_entry_offset += BSA_SUB_ENTRY_SIZE
+
+        data_end = f.tell()
+        f.seek(current_offset)
         for sub_entry in self.sub_entries:
             sub_entry.write(f, endian)
+        f.seek(data_end)
+
 
     def paste(self, other):
         pass

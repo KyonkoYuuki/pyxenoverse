@@ -51,19 +51,29 @@ class BSA:
         for i in range(self.header.num_entries):
             data_offsets.append(struct.unpack(endian + "I", f.read(4))[0])
 
+        # print(data_offsets)
         for i, offset in enumerate(data_offsets):
+            if offset == 0:
+                continue
             entry = Entry(i)
-            if offset != 0:
-                f.seek(offset)
-                entry.read(f, endian)
+            f.seek(offset)
+            entry.read(f, endian)
             self.entries.append(entry)
 
     def write(self, f, endian):
         self.entries.sort(key=lambda entry: entry.index)
-        self.header.num_entries = len(self.entries)
+        self.header.num_entries = self.entries[-1].index + 1
         self.header.data_start = 0x18 if self.header.num_entries else 0
         f.write(struct.pack(endian + BSA_HEADER_BYTE_ORDER, *self.header))
 
-        for i, entry in enumerate(self.entries):
-            f.seek(self.header.data_start + i * BSA_ENTRY_HEADER_SIZE)
+        offsets = [0] * self.header.num_entries
+        # print(len(offsets))
+        f.seek(self.header.data_start + 4 * self.header.num_entries)
+
+        for entry in self.entries:
+            offsets[entry.index] = f.tell()
             entry.write(f, endian)
+
+        f.seek(self.header.data_start)
+        for offset in offsets:
+            f.write(struct.pack(endian + "I", offset))

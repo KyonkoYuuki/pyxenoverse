@@ -75,3 +75,15 @@ class SubEntry(BaseRecord):
         for item in self.items:
             item.read_duration(f, endian)
             # print(f'start_time={item.start_time}, duration={item.duration}, {item.data}')
+
+    def write(self, f, endian):
+        f.write(struct.pack(endian + BSA_SUB_ENTRY_BYTE_ORDER, *self.data))
+
+    def write_items(self, f, endian, data_start):
+        self.duration_offset = f.tell() - data_start
+        for item in self.items:
+            item.write_duration(f, endian)
+        self.data_start = f.tell() - data_start
+        for item in self.items:
+            item.write(f, endian)
+
