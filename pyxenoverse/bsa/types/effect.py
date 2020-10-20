@@ -5,7 +5,7 @@ from pyxenoverse.bsa.types import BaseType
 BSAEffect = recordclass('BSAEffect', [
     'eepk_type',
     'skill_id',
-    'effect',
+    'effect_id',
     'i_06',
     'effect_switch',
     'i_10',
@@ -18,7 +18,7 @@ BSAEffect = recordclass('BSAEffect', [
 # Type 6
 class Effect(BaseType):
     type = 6
-    bac_record = BSAEffect
+    bsa_record = BSAEffect
     byte_order = 'HHHHHHfff'
     size = 24
 

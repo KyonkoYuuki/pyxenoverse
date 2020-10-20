@@ -21,7 +21,7 @@ class Material(BaseRecord):
         self.name = self.name.decode().rstrip('\0')
         self.shader_name = self.shader_name.decode().rstrip('\0')
         self.parameters = []
-        print(self)
+        # print(self)
         for n in range(self.param_count):
             param = Parameter()
             param.read(f, endian)

@@ -16,6 +16,9 @@ BSA_EXPIRATION_BYTE_ORDER = 'HHHH'
 
 
 class Expiration(BaseRecord):
+    type = -1
+    bsa_record = BSAExpiration
+
     def __init__(self):
         super().__init__()
         self.data = BSAExpiration(*([0] * len(BSAExpiration.__fields__)))

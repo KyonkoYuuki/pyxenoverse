@@ -25,7 +25,7 @@ BSADeflection = recordclass('BSADeflection', [
 # Type 4
 class Deflection(BaseType):
     type = 4
-    bac_record = BSADeflection
+    bsa_record = BSADeflection
     byte_order = 'IIIfffIIIIIIHHHH'
     size = 56
 

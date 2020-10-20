@@ -1,4 +1,4 @@
-from collections import defaultdict
+from functools import reduce
 import struct
 from recordclass import recordclass
 
@@ -34,29 +34,61 @@ BSA_ENTRY_HEADER_SIZE = 52
 BSA_ENTRY_HEADER_BYTE_ORDER = 'IHHIIBBIHHHHHHHIIII'
 
 
+class DataList(list):
+    type = -3
+    bsa_record = None
+
+    def __init__(self, name):
+        super().__init__()
+        self.name = name
+
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        if self.get_name() != other.get_name():
+            return False
+        self.clear()
+        self.extend(other.copy())
+
+    def get_name(self):
+        return self.name
+
+    def get_readable_name(self):
+        return reduce(lambda x, y: x + (' ' if y.isupper() else '') + y, self.get_name())
+
+
 class Entry(BaseRecord):
+    type = -3
+    bsa_record = BSAEntry
+
     def __init__(self, index):
         super().__init__()
         self.index = index
-        self.collisions = []
-        self.expirations = []
+        self.collisions = DataList("CollisionList")
+        self.expirations = DataList("ExpirationList")
         self.sub_entries = []
         self.data = BSAEntry(*([0] * len(BSAEntry.__fields__)))
 
     def read(self, f, endian):
+        current = f.tell()
+        self.collisions = DataList("CollisionList")
+        self.expirations = DataList("ExpirationList")
+        self.sub_entries = []
         self.data = BSAEntry(*struct.unpack(endian + BSA_ENTRY_HEADER_BYTE_ORDER, f.read(BSA_ENTRY_HEADER_SIZE)))
         # print(self.data)
+        f.seek(current + self.collision_offset)
         for _ in range(self.collision_count):
             collision = Collision()
             collision.read(f, endian)
             self.collisions.append(collision)
 
+        f.seek(current + self.expiration_offset)
         for _ in range(self.expiration_count):
             expiration = Expiration()
             expiration.read(f, endian)
             self.expirations.append(expiration)
 
-        self.sub_entries = []
+        f.seek(current + self.sub_entry_offset)
         for n in range(self.sub_entry_count):
             sub_entry = SubEntry(n)
             sub_entry.read(f, endian)
@@ -69,6 +101,7 @@ class Entry(BaseRecord):
         offset = BSA_ENTRY_HEADER_SIZE
         self.collision_count = len(self.collisions)
         self.expiration_count = len(self.expirations)
+        self.sub_entries = [sub_entry for sub_entry in self.sub_entries if sub_entry.items]
         self.sub_entry_count = len(self.sub_entries)
 
         self.collision_offset = offset if self.collision_count else 0
@@ -99,6 +132,9 @@ class Entry(BaseRecord):
             sub_entry.write(f, endian)
         f.seek(data_end)
 
-
     def paste(self, other):
-        pass
+        if type(self) != type(other):
+            return False
+        self.data = BSAEntry(*other.data)
+        self.after_effects = other.after_effects.copy()
+        self.sub_entries = other.sub_entries.copy()

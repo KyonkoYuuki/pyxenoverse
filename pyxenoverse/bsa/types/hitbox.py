@@ -22,16 +22,16 @@ BSAHitbox = recordclass('BSAHitbox', [
     'i_52',
     'i_54',
     'i_56',
-    'bdm_first_hit',
-    'bdm_multiple_hits',
-    'bdm_last_hit'
+    'bdm_first_hit_id',
+    'bdm_multiple_hits_id',
+    'bdm_last_hit_id'
 ])
 
 
 # Type 3
 class Hitbox(BaseType):
     type = 3
-    bac_record = BSAHitbox
+    bsa_record = BSAHitbox
     byte_order = 'HHHHffffffffffHHHHHHHH'
     size = 64
 

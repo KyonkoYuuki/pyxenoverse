@@ -5,7 +5,7 @@ from pyxenoverse.bsa.types import BaseType
 BSAEntryPassing = recordclass('BSAEntryPassing', [
     'i_00',
     'main_condition',
-    'bsa_entry',
+    'bsa_entry_id',
     'i_06',
     'bac_condition',
     'f_12'
@@ -15,7 +15,7 @@ BSAEntryPassing = recordclass('BSAEntryPassing', [
 # Type 0
 class EntryPassing(BaseType):
     type = 0
-    bac_record = BSAEntryPassing
+    bsa_record = BSAEntryPassing
     byte_order = 'HHHHff'
     size = 16
 

@@ -13,7 +13,7 @@ BSAType2 = recordclass('BSAType2', [
 # Type 2
 class Type2(BaseType):
     type = 2
-    bac_record = BSAType2
+    bsa_record = BSAType2
     byte_order = 'HHHH'
     size = 8
 
