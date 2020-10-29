@@ -56,8 +56,6 @@ class PartSet(BaseRecord):
         self.data = BCSPartSet(*struct.unpack(endian + BCS_PART_SET_BYTE_ORDER, f.read(BCS_PART_SET_SIZE)))
         # print(self.data)
 
-        self.num_parts = 10  # never changes
-        self.table_start = 0x20  # never changes
         self.parts.clear()
         for part_name in BCS_PART_LIST:
             offset = self[part_name + "_offset"]
@@ -70,6 +68,8 @@ class PartSet(BaseRecord):
             self.parts[part_name] = part
 
     def write(self, f, names, endian):
+        self.num_parts = 10  # never changes
+        self.table_start = 0x20  # never changes
         start_address = f.tell()
         f.seek(start_address + BCS_PART_SET_SIZE)
         for part_name in BCS_PART_LIST:
