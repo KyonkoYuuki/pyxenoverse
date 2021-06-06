@@ -1,5 +1,6 @@
+import struct
+import math
 from recordclass import recordclass
-
 from pyxenoverse.bac.types import BaseType
 
 BACProjectile = recordclass('BACProjectile', [
@@ -15,9 +16,9 @@ BACProjectile = recordclass('BACProjectile', [
     'position_x',
     'position_y',
     'position_z',
-    'u_20',
-    'spawn_properties',
-    'f_28',
+    'rotation_x',
+    'rotation_y',
+    'rotation_z',
     'skill_type',
     'u_2e',
     'projectile_health',
@@ -31,7 +32,7 @@ BACProjectile = recordclass('BACProjectile', [
 class Projectile(BaseType):
     type = 9
     bac_record = BACProjectile
-    byte_order = 'HHHHHHIHHfffIIfHHIIII'
+    byte_order = 'HHHHHHIHHffffffHHIIII'
     size = 64
     dependencies = {
         ('skill_id', None): {},
@@ -40,3 +41,24 @@ class Projectile(BaseType):
 
     def __init__(self, index):
         super().__init__(index)
+
+    def read(self, f, endian, _):
+        self.data = self.bac_record(*struct.unpack(endian + self.byte_order, f.read(self.size)))
+        self.data.rotation_x = math.degrees(self.data.rotation_x)
+        self.data.rotation_y = math.degrees(self.data.rotation_y)
+        self.data.rotation_z = math.degrees(self.data.rotation_z)
+
+    def write(self, f, endian):
+        backup_x = self.data.rotation_x
+        backup_y = self.data.rotation_y
+        backup_z = self.data.rotation_z
+
+        self.data.rotation_x = math.radians(self.data.rotation_x)
+        self.data.rotation_y = math.radians(self.data.rotation_y)
+        self.data.rotation_z = math.radians(self.data.rotation_z)
+        f.write(struct.pack(endian + self.byte_order, *self.data))
+
+        self.data.rotation_x = backup_x
+        self.data.rotation_y = backup_y
+        self.data.rotation_z = backup_z
+
