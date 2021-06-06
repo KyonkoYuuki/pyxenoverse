@@ -5,7 +5,7 @@ from recordclass import recordclass
 from pyxenoverse import BaseRecord, merge_dict
 from pyxenoverse.bac.types.animation import Animation
 from pyxenoverse.bac.types.hitbox import Hitbox
-from pyxenoverse.bac.types.acceleration_movement import AccelerationMovement
+from pyxenoverse.bac.types.acceleration_movement import Movement
 from pyxenoverse.bac.types.invulnerability import Invulnerability
 from pyxenoverse.bac.types.motion_adjust import MotionAdjust
 from pyxenoverse.bac.types.opponent_knockback import OpponentKnockback
@@ -35,7 +35,7 @@ from pyxenoverse.bac.types.effect_property_control import EffectPropertyControl
 ITEM_TYPES = {
     0: Animation,
     1: Hitbox,
-    2: AccelerationMovement,
+    2: Movement,
     3: Invulnerability,
     4: MotionAdjust,
     5: OpponentKnockback,

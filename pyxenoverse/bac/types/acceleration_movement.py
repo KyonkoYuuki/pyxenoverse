@@ -19,7 +19,7 @@ BACAccelerationMovement = recordclass('BACAccelerationMovement', [
 
 
 # Type 2
-class AccelerationMovement(BaseType):
+class Movement(BaseType):
     type = 2
     bac_record = BACAccelerationMovement
     byte_order = 'HHHHHHffffff'
