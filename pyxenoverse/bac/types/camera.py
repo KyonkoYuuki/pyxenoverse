@@ -25,7 +25,8 @@ BACCamera = recordclass('BACCamera', [
     'u_38',
     'u_3c',
     'u_40',
-    'u_44',
+    'u_42',
+    'zoom_duration',
     'u_48',
     'camera_flags'
 ])
@@ -38,7 +39,7 @@ class Camera(BaseType):
         ('ean_index', 'ean_type'): {0x4: 'Character', 0x5: 'Skill'}
     }
     bac_record = BACCamera
-    byte_order = 'HHHHHHHHHHfffffffffIIIIHH'
+    byte_order = 'HHHHHHHHHHfffffffffIIIHHHH'
     size = 76
 
     def __init__(self, index):
