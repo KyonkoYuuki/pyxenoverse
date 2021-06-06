@@ -2,7 +2,7 @@ from recordclass import recordclass
 
 from pyxenoverse.bac.types import BaseType
 
-BACTransformControl = recordclass('BACTransformControl', [
+BACFunctionControl = recordclass('BACFunctionControl', [
     'start_time',
     'duration',
     'u_04',
@@ -18,9 +18,9 @@ BACTransformControl = recordclass('BACTransformControl', [
 
 
 # Type 15
-class TransformControl(BaseType):
+class FunctionControl(BaseType):
     type = 15
-    bac_record = BACTransformControl
+    bac_record = BACFunctionControl
     byte_order = 'HHHHHHfffII'
     size = 32
 

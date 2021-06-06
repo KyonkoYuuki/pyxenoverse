@@ -2,7 +2,7 @@ from recordclass import recordclass
 
 from pyxenoverse.bac.types import BaseType
 
-BACAccelerationMovement = recordclass('BACAccelerationMovement', [
+BACMovement = recordclass('BACMovement', [
     'start_time',
     'duration',
     'u_04',
@@ -21,7 +21,7 @@ BACAccelerationMovement = recordclass('BACAccelerationMovement', [
 # Type 2
 class Movement(BaseType):
     type = 2
-    bac_record = BACAccelerationMovement
+    bac_record = BACMovement
     byte_order = 'HHHHHHffffff'
     size = 36
 

@@ -7,8 +7,8 @@ from pyxenoverse.bac.types.animation import Animation
 from pyxenoverse.bac.types.hitbox import Hitbox
 from pyxenoverse.bac.types.movement import Movement
 from pyxenoverse.bac.types.invulnerability import Invulnerability
-from pyxenoverse.bac.types.motion_adjust import MotionAdjust
-from pyxenoverse.bac.types.opponent_knockback import OpponentKnockback
+from pyxenoverse.bac.types.time_scale import TimeScale
+from pyxenoverse.bac.types.tracking import Tracking
 from pyxenoverse.bac.types.chain_attack_parameters import ChainAttackParameters
 from pyxenoverse.bac.types.bcm_callback import BcmCallback
 from pyxenoverse.bac.types.effect import Effect
@@ -18,7 +18,7 @@ from pyxenoverse.bac.types.sound import Sound
 from pyxenoverse.bac.types.targeting_assistance import TargetingAssistance
 from pyxenoverse.bac.types.part_invisibility import PartInvisibility
 from pyxenoverse.bac.types.animation_modification import AnimationModification
-from pyxenoverse.bac.types.transform_control import TransformControl
+from pyxenoverse.bac.types.function_control import FunctionControl
 from pyxenoverse.bac.types.screen_effect import ScreenEffect
 from pyxenoverse.bac.types.throw_handler import ThrowHandler
 from pyxenoverse.bac.types.physics import Physics
@@ -37,8 +37,8 @@ ITEM_TYPES = {
     1: Hitbox,
     2: Movement,
     3: Invulnerability,
-    4: MotionAdjust,
-    5: OpponentKnockback,
+    4: TimeScale,
+    5: Tracking,
     6: ChainAttackParameters,
     7: BcmCallback,
     8: Effect,
@@ -48,7 +48,7 @@ ITEM_TYPES = {
     12: TargetingAssistance,
     13: PartInvisibility,
     14: AnimationModification,
-    15: TransformControl,
+    15: FunctionControl,
     16: ScreenEffect,
     17: ThrowHandler,
     18: Physics,
