@@ -5,7 +5,7 @@ from recordclass import recordclass
 from pyxenoverse import BaseRecord, merge_dict
 from pyxenoverse.bac.types.animation import Animation
 from pyxenoverse.bac.types.hitbox import Hitbox
-from pyxenoverse.bac.types.acceleration_movement import Movement
+from pyxenoverse.bac.types.movement import Movement
 from pyxenoverse.bac.types.invulnerability import Invulnerability
 from pyxenoverse.bac.types.motion_adjust import MotionAdjust
 from pyxenoverse.bac.types.opponent_knockback import OpponentKnockback
