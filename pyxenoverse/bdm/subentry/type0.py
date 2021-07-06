@@ -4,24 +4,20 @@ from pyxenoverse.bdm.subentry import BaseType
 
 BDMType0 = recordclass('BDMType0', [
     'damage_type',
-    'u_02',
+    'secondary_type',
     'damage_amount',
-    'u_06',
-    'f_08',
+    'damage_special',
     'sound_type',
     'sound_id',
     'effect_1_eepk_id',
     'effect_1_skill_id',
     'effect_1_skill_type',
-    'u_16',
     'effect_2_eepk_id',
     'effect_2_skill_id',
     'effect_2_skill_type',
-    'u_1e',
     'effect_3_eepk_id',
     'effect_3_skill_id',
     'effect_3_skill_type',
-    'u_26',
     'pushback_speed',
     'pushback_acceleration_percent',
     'user_stun',
@@ -29,25 +25,13 @@ BDMType0 = recordclass('BDMType0', [
     'knockback_duration',
     'knockback_ground_impact_time',
     'knockback_recovery_after_impact_time',
-    'u_3a',
+    'knockback_gravity_time',
     'knockback_strength_x',
     'knockback_strength_y',
     'knockback_strength_z',
     'knockback_drag_y',
-    'u_4c',
-    'knockback_gravity_time',
     'victim_invincibility_time',
-    'u_52',
-    'transformation_type',
     'ailment_type',
-    'u_58',
-    'u_5a',
-    'u_5c',
-    'special',
-    'u_60',
-    'u_62',
-    'stumble_type',
-    'secondary_type',
     'camera_shake_type',
     'camera_shake_time',
     'user_screen_flash_transparency',
@@ -57,13 +41,29 @@ BDMType0 = recordclass('BDMType0', [
     'user_animation_time',
     'victim_animation_time',
     'user_animation_speed',
-    'victim_animation_speed'
+    'victim_animation_speed',
+    'transformation_type',
+    'stumble_type',
+    'u_02',
+    'u_06',
+    'f_08',
+    'u_22',
+    'u_30',
+    'u_38',
+    'u_58',
+    'u_76',
+    'u_82',
+    'u_88_1', #array
+    'u_88_2',
+    'u_88_3',
+    'u_96_1',#array
+    'u_96_2'
 ])
 
 
 class Type0(BaseType):
     bac_record = BDMType0
-    byte_order = 'HHHHfHHHHHHHHHHHHHHffHHHHHHffffHHHHHHHHHHHHHHhHhhHHHHff'
+    byte_order = 'HHHHfHhhhHHhhHHhhHHffHHHHHHffffHHhHHhHHHHHHHHHHhhhHHHfI'
     size = 128
 
     def convert_type1_to_type0(self, type1):
