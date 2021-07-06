@@ -54,5 +54,5 @@ BDMType1 = recordclass('BDMType1', [
 
 class Type1(BaseType):
     bac_record = BDMType1
-    byte_order = 'HHHHfHhhhhHhhhHffHHHHHHffffHHhHHhHHHHHHHHHHhhh'
+    byte_order = 'HHHHfhhhhhHhhhHffHHHHHHffffHHfHHHHHHHHHHHhHhhH'
     size = 108

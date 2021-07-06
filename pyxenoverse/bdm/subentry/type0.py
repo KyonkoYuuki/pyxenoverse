@@ -63,7 +63,7 @@ BDMType0 = recordclass('BDMType0', [
 
 class Type0(BaseType):
     bac_record = BDMType0
-    byte_order = 'HHHHfHhhhHHhhHHhhHHffHHHHHHffffHHhHHhHHHHHHHHHHhhhHHHff'
+    byte_order = 'HHHHfHHHHHHHHHHHHHHffHHHHHHffffHHHHHHHHHHHHHHhHhhHHHHff'
     size = 128
 
     def convert_type1_to_type0(self, type1):
