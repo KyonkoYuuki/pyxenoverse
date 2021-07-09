@@ -4,7 +4,7 @@ from recordclass import recordclass
 from pyxenoverse import BaseRecord
 
 BSACollision = recordclass('BSACollision', [
-    'type',
+    'eepk_type',
     'skill_id',
     'effect_id',
     'i_08',
@@ -19,6 +19,9 @@ BSA_COLLISION_BYTE_ORDER = 'HHIIIII'
 
 
 class Collision(BaseRecord):
+    type = -2
+    bsa_record = BSACollision
+
     def __init__(self):
         super().__init__()
         self.data = BSACollision(*([0] * len(BSACollision.__fields__)))

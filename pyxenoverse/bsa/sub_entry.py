@@ -2,6 +2,8 @@ import struct
 from recordclass import recordclass
 
 from pyxenoverse import BaseRecord
+from pyxenoverse.bsa.collision import Collision
+from pyxenoverse.bsa.expiration import Expiration
 from pyxenoverse.bsa.types.entry_passing import EntryPassing
 from pyxenoverse.bsa.types.movement import Movement
 from pyxenoverse.bsa.types.type2 import Type2
@@ -12,6 +14,8 @@ from pyxenoverse.bsa.types.sound import Sound
 from pyxenoverse.bsa.types.type8 import Type8
 
 ITEM_TYPES = {
+    -2: Collision,
+    -1: Expiration,
     0: EntryPassing,
     1: Movement,
     2: Type2,
@@ -20,7 +24,7 @@ ITEM_TYPES = {
     # 5 doesn't exist?
     6: Effect,
     7: Sound,
-    8: Type8
+    8: Type8,
 }
 
 BSASubEntry = recordclass('BSASubEntry', [
@@ -77,6 +81,7 @@ class SubEntry(BaseRecord):
             # print(f'start_time={item.start_time}, duration={item.duration}, {item.data}')
 
     def write(self, f, endian):
+        self.count = len(self.items)
         f.write(struct.pack(endian + BSA_SUB_ENTRY_BYTE_ORDER, *self.data))
 
     def write_items(self, f, endian, data_start):
@@ -87,3 +92,17 @@ class SubEntry(BaseRecord):
         for item in self.items:
             item.write(f, endian)
 
+    def paste(self, other):
+        if type(self) != type(other):
+            return False
+        if self.type != other.type:
+            return False
+        self.data = BSASubEntry(*other.data)
+        self.items = other.items.copy()
+        return True
+
+    def get_readable_name(self):
+        return ITEM_TYPES[self.type].__name__ + ' Group'
+
+    def get_type_name(self):
+        return ITEM_TYPES[self.type].__name__

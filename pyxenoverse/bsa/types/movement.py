@@ -21,7 +21,7 @@ BSAMovement = recordclass('BSAMovement', [
 # Type 1
 class Movement(BaseType):
     type = 1
-    bac_record = BSAMovement
+    bsa_record = BSAMovement
     byte_order = 'Ifffffffffff'
     size = 48
 

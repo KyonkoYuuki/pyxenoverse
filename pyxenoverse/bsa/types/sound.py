@@ -13,7 +13,7 @@ BSASound = recordclass('BSASound', [
 # Type 7
 class Sound(BaseType):
     type = 7
-    bac_record = BSASound
+    bsa_record = BSASound
     byte_order = 'HHHH'
     size = 8
 

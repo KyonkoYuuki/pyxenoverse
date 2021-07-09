@@ -17,7 +17,7 @@ class Parameter(BaseRecord):
     def read(self, f, endian):
         self.data = EMMParameter(*struct.unpack(endian + EMM_PARAMETER_BYTE_ORDER, f.read(EMM_PARAMETER_SIZE)))
         self.name = self.name.decode().strip('\0')
-        print(self)
+        #print(self)
 
     def write(self, f, endian):
         self.name = self.name.ljust(32, '\0').encode()

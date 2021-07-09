@@ -15,7 +15,7 @@ BSAType8 = recordclass('BSAType8', [
 # Type 8
 class Type8(BaseType):
     type = 8
-    bac_record = BSAType8
+    bsa_record = BSAType8
     byte_order = 'IIIIII'
     size = 24
 
