@@ -2,7 +2,7 @@ from recordclass import recordclass
 
 from pyxenoverse.bac.types import BaseType
 
-BACDualSkillData = recordclass('BACDualSkillData', [
+BACDualSkillHandler = recordclass('BACDualSkillHandler', [
     'start_time',
     'duration',
     'u_04',
@@ -27,9 +27,9 @@ BACDualSkillData = recordclass('BACDualSkillData', [
 
 
 # Type 24
-class DualSkillData(BaseType):
+class DualSkillHandler(BaseType):
     type = 24
-    bac_record = BACDualSkillData
+    bac_record = BACDualSkillHandler
     byte_order = 'HHHHHHHHIfffHHIfffHH'
     size = 56
 

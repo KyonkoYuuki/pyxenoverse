@@ -8,7 +8,7 @@ BACHomingMovement = recordclass('BACHomingMovement', [
     'duration',
     'u_04',
     'character_type',
-    'type',
+    'homingmovement_type',
     'horizontal_homing_arc_direction',
     'speed_modifier',
     'u_10',
@@ -31,6 +31,11 @@ class HomingMovement(BaseType):
 
     def __init__(self, index):
         super().__init__(index)
+
+    homingmovement_type_dict = {0x0 : "Horizontal arc",
+                     0x1 : "Straight line",
+                     0x2 : "Right-left/up-down arc"}
+
 
     def read(self, f, endian, _):
         address = f.tell()

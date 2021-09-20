@@ -19,5 +19,9 @@ class TargetingAssistance(BaseType):
     byte_order = 'HHHHHH'
     size = 12
 
+    rotation_axis_dict = {0x0 : "X",
+                         0x1 : "Y",
+                         0x2 : "Z"}
+
     def __init__(self, index):
         super().__init__(index)

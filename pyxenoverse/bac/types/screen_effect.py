@@ -1,6 +1,7 @@
 from recordclass import recordclass
 
 from pyxenoverse.bac.types import BaseType
+from yabac.panels.types import screen_effect_panel
 
 BACScreenEffect = recordclass('BACScreenEffect', [
     'start_time',
@@ -23,5 +24,6 @@ class ScreenEffect(BaseType):
     byte_order = 'HHHHIIIIII'
     size = 32
 
+    bpe_effect_id_dict = screen_effect_panel.IDs
     def __init__(self, index):
         super().__init__(index)

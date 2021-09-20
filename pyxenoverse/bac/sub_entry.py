@@ -17,8 +17,8 @@ from pyxenoverse.bac.types.camera import Camera
 from pyxenoverse.bac.types.sound import Sound
 from pyxenoverse.bac.types.targeting_assistance import TargetingAssistance
 from pyxenoverse.bac.types.part_invisibility import PartInvisibility
-from pyxenoverse.bac.types.animation_modification import AnimationModification
-from pyxenoverse.bac.types.function_control import FunctionControl
+from pyxenoverse.bac.types.bone_modification import BoneModification
+from pyxenoverse.bac.types.system import System
 from pyxenoverse.bac.types.screen_effect import ScreenEffect
 from pyxenoverse.bac.types.throw_handler import ThrowHandler
 from pyxenoverse.bac.types.physics import Physics
@@ -27,7 +27,7 @@ from pyxenoverse.bac.types.homing_movement import HomingMovement
 from pyxenoverse.bac.types.eye_movement import EyeMovement
 from pyxenoverse.bac.types.type22 import Type22
 from pyxenoverse.bac.types.transparency_effect import TransparencyEffect
-from pyxenoverse.bac.types.dual_skill_data import DualSkillData
+from pyxenoverse.bac.types.dual_skill_handler import DualSkillHandler
 from pyxenoverse.bac.types.charge_attack_parameters import ChargeAttackParameters
 from pyxenoverse.bac.types.extended_camera_control import ExtendedCameraControl
 from pyxenoverse.bac.types.effect_property_control import EffectPropertyControl
@@ -47,8 +47,8 @@ ITEM_TYPES = {
     11: Sound,
     12: TargetingAssistance,
     13: PartInvisibility,
-    14: AnimationModification,
-    15: FunctionControl,
+    14: BoneModification,
+    15: System,
     16: ScreenEffect,
     17: ThrowHandler,
     18: Physics,
@@ -57,7 +57,7 @@ ITEM_TYPES = {
     21: EyeMovement,
     22: Type22,
     23: TransparencyEffect,
-    24: DualSkillData,
+    24: DualSkillHandler,
     25: ChargeAttackParameters,
     26: ExtendedCameraControl,
     27: EffectPropertyControl,

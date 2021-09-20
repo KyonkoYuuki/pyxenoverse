@@ -21,5 +21,11 @@ class Sound(BaseType):
     byte_order = 'HHHHHHHH'
     size = 16
 
+    acb_type_dict = {0x0 : "CAR_BTL_CMN",
+                     0x2 : "Character SE",
+                     0x3 : "Character VOX",
+                     0xa : "Skill SE",
+                     0xb : "Skill VOX"}
+
     def __init__(self, index):
         super().__init__(index)

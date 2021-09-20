@@ -15,7 +15,7 @@ BACHitbox = recordclass('BACHitbox', [
     'use_matrix',
     'bdm_type',
     'u_14',
-    'u_18',
+    'f_18',
     'position_x',
     'position_y',
     'position_z',
@@ -32,11 +32,15 @@ BACHitbox = recordclass('BACHitbox', [
 class Hitbox(BaseType):
     type = 1
     bac_record = BACHitbox
-    byte_order = 'HHHHHHHHHBBIIfffffffff'
+    byte_order = 'HHHHHHHHHBBIffffffffff'
     size = 64
     dependencies = {
         ('bdm_entry', 'bdm_type'): {0x1: 'Character', 0x2: 'Skill'}
     }
+
+    bdm_type_dict = {0x0 : "CMN",
+                     0x1 : "Character",
+                     0x2 : "Skill"}
 
     def __init__(self, index):
         super().__init__(index)
