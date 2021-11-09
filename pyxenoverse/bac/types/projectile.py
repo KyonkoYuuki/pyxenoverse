@@ -9,8 +9,8 @@ BACProjectile = recordclass('BACProjectile', [
     'u_04',
     'character_type',
     'skill_id',
-    'can_use_cmn_bsa',
-    'projectile_id',
+    'use_cmn_bsa',
+    'bsa_id',
     'bone_to_spawn_from',
     'spawn_source',
     'position_x',
@@ -19,10 +19,10 @@ BACProjectile = recordclass('BACProjectile', [
     'rotation_x',
     'rotation_y',
     'rotation_z',
-    'skill_type',
-    'u_2e',
+    'skill_bsa_flags',
+    'projectile_flags',
     'projectile_health',
-    'u_34',
+    'unique_id',
     'u_38',
     'u_3c'
 ])
@@ -36,7 +36,7 @@ class Projectile(BaseType):
     size = 64
     dependencies = {
         ('skill_id', None): {},
-        ('projectile_id', 'can_use_cmn_bsa'): {0x0: 'Yes'}
+        ('bsa_id', 'use_cmn_bsa'): {0x0: 'Yes'}
     }
 
     skill_type_dict = {0x0 : "CMN",

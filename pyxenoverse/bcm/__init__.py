@@ -44,12 +44,15 @@ BCMEntry = recordclass('BCMEntry', [
     'ki_required', # 5C
     'health_required', # 60
     'trans_stage', # 64
+
     'cus_aura', # 66
     'u_68',
+    'u_6a',
     'u_6c',
 ])
 BCM_ENTRY_SIZE = 112
-BCM_ENTRY_BYTE_ORDER = 'IIIIIhhIIHHHHHHHHIIIIIIIIIIIIfhhII'
+BCM_ENTRY_BYTE_ORDER = 'IIIIIhhIIHHHHHHHHIIIIIIIIIIIIfh' \
+                       'hHHI'
 
 
 class BCM:

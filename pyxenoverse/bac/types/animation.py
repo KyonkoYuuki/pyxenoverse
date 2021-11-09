@@ -9,15 +9,15 @@ BACAnimation = recordclass('BACAnimation', [
     'character_type',
     'ean_type',
     'ean_index',
-    'u_0c',
-    'u_0e',
+    'animation_flags',
+    'play_face_animation_from_skill',
     'frame_start',
     'frame_end',
     'frame_loop_start',
     'u_16',
     'speed',
-    'transitory_animation_connection_type',
-    'transitory_animation_compression'
+    'animation_transition_start_frame',
+    'animation_transition_frame_step'
 ])
 
 

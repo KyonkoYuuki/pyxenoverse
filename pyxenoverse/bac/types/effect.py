@@ -12,12 +12,12 @@ BACEffect = recordclass('BACEffect', [
     'skill_id',
     'use_skill_id',
     'effect_id',
-    'u_14',
-    'u_18',
-    'u_1c',
-    'u_20',
-    'u_24',
-    'u_28',
+    'position_x',
+    'position_y',
+    'position_z',
+    'rotation_x',
+    'rotation_y',
+    'rotation_z',
     'on_off_switch'
 ])
 

@@ -8,7 +8,7 @@ BACSound = recordclass('BACSound', [
     'u_04',
     'character_type',
     'acb_type',
-    'u_0a',
+    'sound_flags',
     'cue_id',
     'u_0e'
 ])

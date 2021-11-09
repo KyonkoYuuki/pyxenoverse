@@ -46,7 +46,7 @@ class System(BaseType):
         0x1d: 'Go to entry',
         0x1f: 'Reset Camera',
         0x20: 'Disable movement/skill',
-        0x22: 'Loop (held down)',
+        0x22: 'Loop (Hold Down)',
         0x23: 'Floating rocks',
         0x24: 'Knock away rocks',
         0x25: 'Go to entry at end',
@@ -63,6 +63,7 @@ class System(BaseType):
         0x43: 'Auto-dodge',
         0x44: 'Damage x10',
         0x4c: 'Activate Buff',
+        0x4d: 'Count-Specific Loop (Hold Down)',
         0x4e: 'Skill Upgrade'
     }
 

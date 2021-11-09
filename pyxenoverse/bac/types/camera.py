@@ -13,7 +13,7 @@ BACCamera = recordclass('BACCamera', [
     'frame_start',
     'u_10',
 
-    'u_12',
+    'duration_all',
     'z_position',
     'x_z_disposition',
     'y_z_disposition',
@@ -25,17 +25,17 @@ BACCamera = recordclass('BACCamera', [
 
     'zoom',
     'z_rotation',
-    'u_36',
-    'u_38',
+    'z_position_duration',
+    'displacement_xz_duration',
 
-    'u_3a',
-    'u_3c',
-    'u_3e',
-    'u_40',
+    'displacement_yz_duration',
+    'y_rotation_duration',
+    'x_rotation_duration',
+    'x_position_duration',
 
-    'u_42',
+    'y_position_duration',
     'zoom_duration',
-    'u_48',
+    'z_rotation_duration',
     'camera_flags'
 ])
 
@@ -47,7 +47,7 @@ class Camera(BaseType):
         ('ean_index', 'ean_type'): {0x4: 'Character', 0x5: 'Skill'}
     }
 
-    ean_type_dict = { 0x0 : "Basic Lock",
+    ean_type_dict = { 0x0 : "Rumble",
                       0x1 : "Heavy Rumble",
                       0x2 : "Extreme Rumble",
                       0x3 : "CMN.cam.ean",

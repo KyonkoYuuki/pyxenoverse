@@ -9,7 +9,9 @@ BACScreenEffect = recordclass('BACScreenEffect', [
     'u_04',
     'character_type',
     'bpe_effect_id',
-    'u_0c',
+    'bone_link',
+    'screeneffect_flags',
+
     'u_10',
     'u_14',
     'u_18',
@@ -21,7 +23,7 @@ BACScreenEffect = recordclass('BACScreenEffect', [
 class ScreenEffect(BaseType):
     type = 16
     bac_record = BACScreenEffect
-    byte_order = 'HHHHIIIIII'
+    byte_order = 'HHHHIHH IffI'
     size = 32
 
     bpe_effect_id_dict = screen_effect_panel.IDs

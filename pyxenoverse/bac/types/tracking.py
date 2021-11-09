@@ -8,7 +8,7 @@ BACTracking = recordclass('BACTracking', [
     'u_04',
     'character_type',
     'tracking',
-    'u_0c',
+    'tracking_flags',
     'u_0e'
 ])
 
