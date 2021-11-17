@@ -27,9 +27,9 @@ class EditThread(Thread):
         self.count = 0
         self.panel = panel
         self.start()
-
+    #UNLEASHED: Lowered the value, users usually leave the fields too fast and value doesn't save
     def run(self):
-        while self.count < 0.5:
+        while self.count < 0.2:
             time.sleep(0.1)
             self.count += 0.1
 

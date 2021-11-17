@@ -23,11 +23,12 @@ class UnknownNumCtrl(wx.Panel):
                 button.Bind(wx.EVT_BUTTON, partial(self.on_click, value=value))
                 button_sizer.Add(button, 0, wx.EXPAND)
 
-        self.name = wx.StaticText(self, -1, '')
+        #UNLEASHED: Small Hack to increase the width, idk how to do it otherwise
+        self.name = wx.StaticText(self, -1, 'PLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDER')
         self.hex_ctrl = wx.SpinCtrl(self, -1, style=wx.SP_ARROW_KEYS | wx.SP_WRAP, min=self.min, max=self.max, **kwargs)
         self.hex_ctrl.Bind(wx.EVT_SPINCTRL, self.on_change)
 
-        sizer.Add(self.name, 0, wx.VERTICAL | wx.TOP | wx.LEFT, 10)
+        sizer.Add(self.name, 0, wx.LEFT, 10)
         sizer.Add(self.hex_ctrl, 0, wx.ALL, 10)
 
         self.SetSizer(sizer)

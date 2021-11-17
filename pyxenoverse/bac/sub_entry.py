@@ -5,10 +5,10 @@ from recordclass import recordclass
 from pyxenoverse import BaseRecord, merge_dict
 from pyxenoverse.bac.types.animation import Animation
 from pyxenoverse.bac.types.hitbox import Hitbox
-from pyxenoverse.bac.types.acceleration_movement import AccelerationMovement
+from pyxenoverse.bac.types.movement import Movement
 from pyxenoverse.bac.types.invulnerability import Invulnerability
-from pyxenoverse.bac.types.motion_adjust import MotionAdjust
-from pyxenoverse.bac.types.opponent_knockback import OpponentKnockback
+from pyxenoverse.bac.types.time_scale import TimeScale
+from pyxenoverse.bac.types.tracking import Tracking
 from pyxenoverse.bac.types.chain_attack_parameters import ChainAttackParameters
 from pyxenoverse.bac.types.bcm_callback import BcmCallback
 from pyxenoverse.bac.types.effect import Effect
@@ -17,8 +17,8 @@ from pyxenoverse.bac.types.camera import Camera
 from pyxenoverse.bac.types.sound import Sound
 from pyxenoverse.bac.types.targeting_assistance import TargetingAssistance
 from pyxenoverse.bac.types.part_invisibility import PartInvisibility
-from pyxenoverse.bac.types.animation_modification import AnimationModification
-from pyxenoverse.bac.types.transform_control import TransformControl
+from pyxenoverse.bac.types.bone_modification import BoneModification
+from pyxenoverse.bac.types.system import System
 from pyxenoverse.bac.types.screen_effect import ScreenEffect
 from pyxenoverse.bac.types.throw_handler import ThrowHandler
 from pyxenoverse.bac.types.physics import Physics
@@ -27,7 +27,7 @@ from pyxenoverse.bac.types.homing_movement import HomingMovement
 from pyxenoverse.bac.types.eye_movement import EyeMovement
 from pyxenoverse.bac.types.type22 import Type22
 from pyxenoverse.bac.types.transparency_effect import TransparencyEffect
-from pyxenoverse.bac.types.dual_skill_data import DualSkillData
+from pyxenoverse.bac.types.dual_skill_handler import DualSkillHandler
 from pyxenoverse.bac.types.charge_attack_parameters import ChargeAttackParameters
 from pyxenoverse.bac.types.extended_camera_control import ExtendedCameraControl
 from pyxenoverse.bac.types.effect_property_control import EffectPropertyControl
@@ -35,10 +35,10 @@ from pyxenoverse.bac.types.effect_property_control import EffectPropertyControl
 ITEM_TYPES = {
     0: Animation,
     1: Hitbox,
-    2: AccelerationMovement,
+    2: Movement,
     3: Invulnerability,
-    4: MotionAdjust,
-    5: OpponentKnockback,
+    4: TimeScale,
+    5: Tracking,
     6: ChainAttackParameters,
     7: BcmCallback,
     8: Effect,
@@ -47,8 +47,8 @@ ITEM_TYPES = {
     11: Sound,
     12: TargetingAssistance,
     13: PartInvisibility,
-    14: AnimationModification,
-    15: TransformControl,
+    14: BoneModification,
+    15: System,
     16: ScreenEffect,
     17: ThrowHandler,
     18: Physics,
@@ -57,7 +57,7 @@ ITEM_TYPES = {
     21: EyeMovement,
     22: Type22,
     23: TransparencyEffect,
-    24: DualSkillData,
+    24: DualSkillHandler,
     25: ChargeAttackParameters,
     26: ExtendedCameraControl,
     27: EffectPropertyControl,

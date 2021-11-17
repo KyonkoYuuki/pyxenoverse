@@ -1,5 +1,6 @@
 from recordclass import recordclass
 import struct
+import wx
 
 from pyxenoverse.bac.types import BaseType
 
@@ -8,10 +9,10 @@ BACHomingMovement = recordclass('BACHomingMovement', [
     'duration',
     'u_04',
     'character_type',
-    'type',
+    'homingmovement_type',
     'horizontal_homing_arc_direction',
     'speed_modifier',
-    'u_10',
+    'frame_threshold',
     'horizontal_direction_modifier',
     'vertical_direction_modifier',
     'z_direction_modifier',
@@ -32,13 +33,20 @@ class HomingMovement(BaseType):
     def __init__(self, index):
         super().__init__(index)
 
+    homingmovement_type_dict = {0x0 : "Horizontal arc",
+                     0x1 : "Straight line",
+                     0x2 : "Right-left/up-down arc"}
+
+
     def read(self, f, endian, _):
         address = f.tell()
         super().read(f, endian, _)
 
         # Read the speed modifier as a float
-        if self.horizontal_homing_arc_direction == 0x7:
+        if self.horizontal_homing_arc_direction == 7 \
+                or self.horizontal_homing_arc_direction == 35:
             f.seek(address + 12)
+
             self.speed_modifier = struct.unpack(endian + "f", f.read(4))[0]
 
     def write(self, f, endian):
@@ -50,7 +58,8 @@ class HomingMovement(BaseType):
         super().write(f, endian)
 
         # Write it as a float
-        if self.horizontal_homing_arc_direction == 0x7:
+        if self.horizontal_homing_arc_direction == 7 \
+                or self.horizontal_homing_arc_direction == 35:
             self.speed_modifier = speed_modifier_float
             f.seek(address + 12)
             f.write(struct.pack(endian + "f", self.speed_modifier))

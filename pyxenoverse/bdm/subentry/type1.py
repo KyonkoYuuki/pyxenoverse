@@ -4,7 +4,7 @@ from pyxenoverse.bdm.subentry import BaseType
 
 BDMType1 = recordclass('BDMType1', [
     'damage_type',
-    'u_02', # Does this say if its a type 0 or 1?
+    'u_02',
     'damage_amount',
     'u_06',
     'f_08',
@@ -23,37 +23,36 @@ BDMType1 = recordclass('BDMType1', [
     'user_stun',
     'victim_stun',
     'knockback_duration',
-    'knockback_ground_impact_time',
     'knockback_recovery_after_impact_time',
-    'u_3a',
+    'knockback_ground_impact_time',
+    'u_32',
     'knockback_strength_x',
     'knockback_strength_y',
     'knockback_strength_z',
     'knockback_drag_y',
-    'u_4c',
+    'u_44',
     'knockback_gravity_time',
     'victim_invincibility_time',
-    'u_52',
+    'u_4a',
     'transformation_type',
     'ailment_type',
-    'u_58',
-    'u_5a',
-    'u_5c',
-    'special',
-    'u_60',
-    'u_62',
+    'u_50_1',#array
+    'u_50_2',#array
+    'u_50_3',#array
+    'damage_special',
+    'u_58_1',#array
+    'u_58_2',#array
     'stumble_type',
     'secondary_type',
     'camera_shake_type',
     'camera_shake_time',
     'user_screen_flash_transparency',
     'victim_screen_flash_transparency',
-    'u_68',
-    'u_6a'
+    'u_68'
 ])
 
 
 class Type1(BaseType):
     bac_record = BDMType1
-    byte_order = 'HHHHfhhhhhHhhhHffHHHHHHffffHHHHHHHHHHHHHHhHhhHH'
+    byte_order = 'HHHHfhhhhhHhhhHffHHHHHHffffHHfHHHHHHHHHHHhHhhH'
     size = 108

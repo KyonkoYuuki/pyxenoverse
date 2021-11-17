@@ -23,5 +23,8 @@ class Physics(BaseType):
     byte_order = 'HHHHIIIffI'
     size = 32
 
+    function_type_dict = {0x1 : "Simulate Physics",
+                     0x2 : "Play SCD Animations"}
+
     def __init__(self, index):
         super().__init__(index)

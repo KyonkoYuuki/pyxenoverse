@@ -1,5 +1,6 @@
+import struct
+import math
 from recordclass import recordclass
-
 from pyxenoverse.bac.types import BaseType
 
 BACProjectile = recordclass('BACProjectile', [
@@ -8,20 +9,20 @@ BACProjectile = recordclass('BACProjectile', [
     'u_04',
     'character_type',
     'skill_id',
-    'can_use_cmn_bsa',
-    'projectile_id',
+    'use_cmn_bsa',
+    'bsa_id',
     'bone_to_spawn_from',
     'spawn_source',
     'position_x',
     'position_y',
     'position_z',
-    'u_20',
-    'spawn_properties',
-    'f_28',
-    'skill_type',
-    'u_2e',
+    'rotation_x',
+    'rotation_y',
+    'rotation_z',
+    'skill_bsa_flags',
+    'projectile_flags',
     'projectile_health',
-    'u_34',
+    'unique_id',
     'u_38',
     'u_3c'
 ])
@@ -31,12 +32,43 @@ BACProjectile = recordclass('BACProjectile', [
 class Projectile(BaseType):
     type = 9
     bac_record = BACProjectile
-    byte_order = 'HHHHHHIHHfffIIfHHIIII'
+    byte_order = 'HHHHHHIHHffffffHHIIII'
     size = 64
     dependencies = {
         ('skill_id', None): {},
-        ('projectile_id', 'can_use_cmn_bsa'): {0x0: 'Yes'}
+        ('bsa_id', 'use_cmn_bsa'): {0x0: 'Yes'}
     }
+
+    skill_type_dict = {0x0 : "CMN",
+                      0x3 : "Awoken",
+                      0x5 : "Super",
+                      0x6 : "Ultimate",
+                      0x7 : "Evasive",
+                      0x8 : "Blast"}
+
+
+
 
     def __init__(self, index):
         super().__init__(index)
+
+    def read(self, f, endian, _):
+        self.data = self.bac_record(*struct.unpack(endian + self.byte_order, f.read(self.size)))
+        self.data.rotation_x = math.degrees(self.data.rotation_x)
+        self.data.rotation_y = math.degrees(self.data.rotation_y)
+        self.data.rotation_z = math.degrees(self.data.rotation_z)
+
+    def write(self, f, endian):
+        backup_x = self.data.rotation_x
+        backup_y = self.data.rotation_y
+        backup_z = self.data.rotation_z
+
+        self.data.rotation_x = math.radians(self.data.rotation_x)
+        self.data.rotation_y = math.radians(self.data.rotation_y)
+        self.data.rotation_z = math.radians(self.data.rotation_z)
+        f.write(struct.pack(endian + self.byte_order, *self.data))
+
+        self.data.rotation_x = backup_x
+        self.data.rotation_y = backup_y
+        self.data.rotation_z = backup_z
+

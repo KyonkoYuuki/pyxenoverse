@@ -5,10 +5,10 @@ from pyxenoverse.bdm.subentry import BaseType
 BDMType0 = recordclass('BDMType0', [
     'damage_type',
     'u_02',
-    'damage_amount',
+    'damage_amount', #good
     'u_06',
     'f_08',
-    'sound_type',
+    'sound_type', #good1
     'sound_id',
     'effect_1_eepk_id',
     'effect_1_skill_id',
@@ -27,8 +27,8 @@ BDMType0 = recordclass('BDMType0', [
     'user_stun',
     'victim_stun',
     'knockback_duration',
-    'knockback_ground_impact_time',
     'knockback_recovery_after_impact_time',
+    'knockback_ground_impact_time',
     'u_3a',
     'knockback_strength_x',
     'knockback_strength_y',
@@ -40,12 +40,12 @@ BDMType0 = recordclass('BDMType0', [
     'u_52',
     'transformation_type',
     'ailment_type',
-    'u_58',
-    'u_5a',
-    'u_5c',
-    'special',
-    'u_60',
-    'u_62',
+    'u_58_1', #array
+    'u_58_2',
+    'u_58_3',
+    'damage_special',
+    'u_60_1', #array
+    'u_60_2',
     'stumble_type',
     'secondary_type',
     'camera_shake_type',

@@ -8,13 +8,13 @@ BACEyeMovement = recordclass('BACEyeMovement', [
     'u_04',
     'character_type',
     'u_08',
-    'u_0c',
-    'direction',
-    'rotation',
-    'eye_duration',
+    'previous_eye_direction',
+    'next_direction',
+    'frames_until_eyes_reach_rotation',
+    'eye_movement_duration',
     'u_16',
-    'f_18',
-    'f_1c'
+    'left_eye_rotation_percent',
+    'right_eye_rotation_percent'
 ])
 
 
@@ -24,6 +24,18 @@ class EyeMovement(BaseType):
     bac_record = BACEyeMovement
     byte_order = 'HHHHIHHIHHff'
     size = 32
+
+    direction_type_dict = {0x0 : "Left",
+                          0x1 : "Up",
+                          0x2 : "Right",
+                          0x3 : "Left-Up",
+                          0x4 : "None",
+                          0x5 : "Right-Up",
+                          0x6 : "Left-Down",
+                          0x7 : "Down",
+                          0x8 : "Right-Down"}
+
+
 
     def __init__(self, index):
         super().__init__(index)

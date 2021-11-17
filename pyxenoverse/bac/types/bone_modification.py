@@ -1,7 +1,7 @@
 from recordclass import recordclass
 
 from pyxenoverse.bac.types import BaseType
-BACAnimationModification = recordclass('BACAnimationModification', [
+BACBoneModification = recordclass('BACBoneModification', [
     'start_time',
     'duration',
     'u_04',
@@ -12,9 +12,9 @@ BACAnimationModification = recordclass('BACAnimationModification', [
 
 
 # Type 14
-class AnimationModification(BaseType):
+class BoneModification(BaseType):
     type = 14
-    bac_record = BACAnimationModification
+    bac_record = BACBoneModification
     byte_order = 'HHHHHH'
     size = 12
 
