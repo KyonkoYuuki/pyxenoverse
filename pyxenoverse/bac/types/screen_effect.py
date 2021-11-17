@@ -10,7 +10,7 @@ BACScreenEffect = recordclass('BACScreenEffect', [
     'character_type',
     'bpe_effect_id',
     'bone_link',
-    'screeneffect_flags',
+    'screen_effect_flags',
 
     'u_10',
     'u_14',
@@ -27,5 +27,6 @@ class ScreenEffect(BaseType):
     size = 32
 
     bpe_effect_id_dict = screen_effect_panel.IDs
+
     def __init__(self, index):
         super().__init__(index)

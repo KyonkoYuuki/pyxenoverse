@@ -23,7 +23,6 @@ class Type22(BaseType):
                  'If32s'
     size = 48
 
-
     def __init__(self, index):
         super().__init__(index)
 

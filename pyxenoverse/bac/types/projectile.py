@@ -39,15 +39,13 @@ class Projectile(BaseType):
         ('bsa_id', 'use_cmn_bsa'): {0x0: 'Yes'}
     }
 
-    skill_type_dict = {0x0 : "CMN",
-                      0x3 : "Awoken",
-                      0x5 : "Super",
-                      0x6 : "Ultimate",
-                      0x7 : "Evasive",
-                      0x8 : "Blast"}
-
-
-
+    description_type = "skill_bsa_flags"
+    description = {0x0: "CMN",
+                   0x3: "Awoken",
+                   0x5: "Super",
+                   0x6: "Ultimate",
+                   0x7: "Evasive",
+                   0x8: "Blast"}
 
     def __init__(self, index):
         super().__init__(index)
@@ -71,4 +69,3 @@ class Projectile(BaseType):
         self.data.rotation_x = backup_x
         self.data.rotation_y = backup_y
         self.data.rotation_z = backup_z
-

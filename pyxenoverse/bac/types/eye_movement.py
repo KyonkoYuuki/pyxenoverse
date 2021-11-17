@@ -25,17 +25,16 @@ class EyeMovement(BaseType):
     byte_order = 'HHHHIHHIHHff'
     size = 32
 
-    direction_type_dict = {0x0 : "Left",
-                          0x1 : "Up",
-                          0x2 : "Right",
-                          0x3 : "Left-Up",
-                          0x4 : "None",
-                          0x5 : "Right-Up",
-                          0x6 : "Left-Down",
-                          0x7 : "Down",
-                          0x8 : "Right-Down"}
-
-
+    description_type = "next_direction"
+    description = {0x0: "Left",
+                   0x1: "Up",
+                   0x2: "Right",
+                   0x3: "Left-Up",
+                   0x4: "None",
+                   0x5: "Right-Up",
+                   0x6: "Left-Down",
+                   0x7: "Down",
+                   0x8: "Right-Down"}
 
     def __init__(self, index):
         super().__init__(index)

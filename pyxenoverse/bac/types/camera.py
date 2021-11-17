@@ -47,25 +47,24 @@ class Camera(BaseType):
         ('ean_index', 'ean_type'): {0x4: 'Character', 0x5: 'Skill'}
     }
 
-    ean_type_dict = { 0x0 : "Rumble",
-                      0x1 : "Heavy Rumble",
-                      0x2 : "Extreme Rumble",
-                      0x3 : "CMN.cam.ean",
-                      0x4 : "Character",
-                      0x5 : "Skill",
-                      0x6 : "Zoom",
-                      0x7 : "Static",
-                      0x8 : "Victim",
-                      0xa : "Zoom/speed lines",
-                      0xb : "Cinematic (0xb)",
-                      0xc : "Cinematic (0xc)",
-                      0xe : "Heavy Rumble",
-                      0xf : "Extreme Rumble",
-                      0x11 : "Zoom into player",
-                      0x19 : "Activate Extended Camera",
-                      0x20 : "Deactivate Extended Camera"}
-
-
+    description_type = "ean_type"
+    description = {0x0: "Rumble",
+                   0x1: "Heavy Rumble",
+                   0x2: "Extreme Rumble",
+                   0x3: "CMN.cam.ean",
+                   0x4: "Character",
+                   0x5: "Skill",
+                   0x6: "Zoom",
+                   0x7: "Static",
+                   0x8: "Victim",
+                   0xa: "Zoom/speed lines",
+                   0xb: "Cinematic (0xb)",
+                   0xc: "Cinematic (0xc)",
+                   0xe: "Heavy Rumble",
+                   0xf: "Extreme Rumble",
+                   0x11: "Zoom into player",
+                   0x19: "Activate Extended Camera",
+                   0x20: "Deactivate Extended Camera"}
 
     bac_record = BACCamera
     byte_order = 'HHHHH HHHH Hfff ffff ffHH HHHH HHHH'

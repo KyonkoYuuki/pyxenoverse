@@ -44,5 +44,3 @@ class ThrowHandler(BaseType):
 
     def write(self, f, endian):
         f.write(struct.pack(endian + self.byte_order + 'fff', *self.data))
-
-

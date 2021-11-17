@@ -24,7 +24,8 @@ class System(BaseType):
     byte_order = 'HHHHHHfffff'
     size = 32
 
-    function_type_dict = {
+    description_type = "function_type"
+    description = {
         0x0: 'Loop',
         0x2: 'Damage',
         0x4: 'Give/take Ki',

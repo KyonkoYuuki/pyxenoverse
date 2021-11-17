@@ -5,6 +5,9 @@ from pyxenoverse import BaseRecord
 
 # Type 0
 class BaseType(BaseRecord):
+    description = {}
+    description_type = None
+
     def __init__(self, index):
         super().__init__()
         self.index = index

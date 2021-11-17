@@ -22,7 +22,7 @@ BCSPhysics = recordclass('BCSPhysics', [
     'emd_offset',  # 0x2c
     'emm_offset',
     'emb_offset',
-    'esk_offset',
+    'ean_offset',
     'bone_offset',
     'scd_offset',
     'u_40'
@@ -45,7 +45,7 @@ BCS_PHYSICS_XML_NAMES = [
     'emd_name',
     'emm_name',
     'emb_name',
-    'esk_name',
+    'ean_name',
     'scd_name'
 ]
 
@@ -59,7 +59,7 @@ class Physics(BaseRecord):
         self.emd_name = ''
         self.emm_name = ''
         self.emb_name = ''
-        self.esk_name = ''
+        self.ean_name = ''
         self.bone_name = ''
         self.scd_name = ''
         self.data = BCSPhysics(*([0] * len(BCSPhysics.__fields__)))
@@ -79,9 +79,9 @@ class Physics(BaseRecord):
         if self.emb_offset:
             self.emb_name = read_name(f, address + self.emb_offset)
             # print(f'emb: {self.emb_name}')
-        if self.esk_offset:
-            self.esk_name = read_name(f, address + self.esk_offset)
-            # print(f'esk: {self.esk_name}')
+        if self.ean_offset:
+            self.ean_name = read_name(f, address + self.ean_offset)
+            # print(f'ean: {self.ean_name}')
         if self.bone_offset:
             self.bone_name = read_name(f, address + self.bone_offset)
             # print(f'bone: {self.bone_name}')
@@ -95,7 +95,7 @@ class Physics(BaseRecord):
         self.emd_offset = 0
         self.emm_offset = 0
         self.emb_offset = 0
-        self.esk_offset = 0
+        self.ean_offset = 0
         self.bone_offset = 0
         self.scd_offset = 0
         if isinstance(self.name, str):
@@ -109,8 +109,8 @@ class Physics(BaseRecord):
             names.append((address, 0x2c, self.emm_name))
         if self.emb_name:
             names.append((address, 0x30, self.emb_name))
-        if self.esk_name:
-            names.append((address, 0x34, self.esk_name))
+        if self.ean_name:
+            names.append((address, 0x34, self.ean_name))
         if self.bone_name:
             names.append((address, 0x38, self.bone_name))
         if self.scd_name:
@@ -123,7 +123,7 @@ class Physics(BaseRecord):
         self.emd_name = other.emd_name
         self.emm_name = other.emm_name
         self.emb_name = other.emb_name
-        self.esk_name = other.esk_name
+        self.ean_name = other.ean_name
         self.bone_name = other.bone_name
         self.scd_name = other.scd_name
 
@@ -132,7 +132,7 @@ class Physics(BaseRecord):
             self.emd_name = self.emd_name.replace(other.name, self.name)
             self.emm_name = self.emm_name.replace(other.name, self.name)
             self.emb_name = self.emb_name.replace(other.name, self.name)
-            self.esk_name = self.esk_name.replace(other.name, self.name)
+            self.ean_name = self.ean_name.replace(other.name, self.name)
             self.bone_name = self.bone_name.replace(other.name, self.name)
             self.scd_name = self.scd_name.replace(other.name, self.name)
         return True
@@ -154,10 +154,10 @@ class Physics(BaseRecord):
             SubElement(physics, xml_name, value=value)
 
         # Add file names
-        physics.append(Comment("MODEL, EMM, EMB, ESK, BONE, SCD"))
+        physics.append(Comment("MODEL, EMM, EMB, EAN, BONE, SCD"))
         model_names = {}
         for name in BCS_PHYSICS_XML_NAMES:
             model_names[name] = get_costume_creator_name(self[name])
         SubElement(physics, "STR_28", value=f'{model_names["emd_name"] or "NULL"}, {model_names["emm_name"] or "NULL"}, '
-                                           f'{model_names["emb_name"] or "NULL"}, {model_names["esk_name"] or "NULL"}, '
+                                           f'{model_names["emb_name"] or "NULL"}, {model_names["ean_name"] or "NULL"}, '
                                            f'{self.bone_name or "NULL"}, {model_names["scd_name"] or "NULL"}')

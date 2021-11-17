@@ -12,6 +12,7 @@ from pyxenoverse.bsa.types.deflection import Deflection
 from pyxenoverse.bsa.types.effect import Effect
 from pyxenoverse.bsa.types.sound import Sound
 from pyxenoverse.bsa.types.type8 import Type8
+from pyxenoverse.bsa.types.type12 import Type12
 
 ITEM_TYPES = {
     -2: Collision,
@@ -25,6 +26,7 @@ ITEM_TYPES = {
     6: Effect,
     7: Sound,
     8: Type8,
+    12: Type12,
 }
 
 BSASubEntry = recordclass('BSASubEntry', [
