@@ -46,9 +46,11 @@ class Hitbox(BaseType):
     }
 
     description_type = "bdm_type"
-    description = {0x0: "CMN",
-                   0x1: "Character",
-                   0x2: "Skill"}
+    description = {
+        0x0: "CMN",
+        0x1: "Character",
+        0x2: "Skill"
+    }
 
     def __init__(self, index):
         super().__init__(index)

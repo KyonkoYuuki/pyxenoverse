@@ -19,17 +19,18 @@ class PartInvisibility(BaseType):
     byte_order = 'HHHHHH'
     size = 12
     description_type = "bcs_part_id"
-    description = {0x0: "Face base",
-                   0x1: "Face forehead",
-                   0x2: "Face eye",
-                   0x3: "Face nose",
-                   0x4: "Face ear",
-                   0x5: "Hair",
-                   0x6: "Bust",
-                   0x7: "Pants",
-                   0x8: "Rist",
-                   0x9: "Boots",
-                   0x1: "Face forehead"}
+    description = {
+        0x0: "Face base",
+        0x1: "Face forehead",
+        0x2: "Face eye",
+        0x3: "Face nose",
+        0x4: "Face ear",
+        0x5: "Hair",
+        0x6: "Bust",
+        0x7: "Pants",
+        0x8: "Rist",
+        0x9: "Boots",
+    }
 
     def __init__(self, index):
         super().__init__(index)

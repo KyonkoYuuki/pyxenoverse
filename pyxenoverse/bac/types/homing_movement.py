@@ -34,9 +34,11 @@ class HomingMovement(BaseType):
         super().__init__(index)
 
     description_type = "homing_movement_type"
-    description = {0x0: "Horizontal arc",
-                   0x1: "Straight line",
-                   0x2: "Right-left/up-down arc"}
+    description = {
+        0x0: "Horizontal arc",
+        0x1: "Straight line",
+        0x2: "Right-left/up-down arc"
+    }
 
     def read(self, f, endian, _):
         address = f.tell()

@@ -21,13 +21,15 @@ class AuraEffect(BaseType):
     size = 16
 
     description_type = "aura_type"
-    description = {0x0: "Boost start",
-                   0x1: "Boost loop",
-                   0x2: "Boost end",
-                   0x3: "Ki charge loop",
-                   0x4: "Ki charge end",
-                   0x5: "Transform aura loop",
-                   0x6: "Transform aura end"}
+    description = {
+        0x0: "Boost start",
+        0x1: "Boost loop",
+        0x2: "Boost end",
+        0x3: "Ki charge loop",
+        0x4: "Ki charge end",
+        0x5: "Transform aura loop",
+        0x6: "Transform aura end"
+    }
 
     def __init__(self, index):
         super().__init__(index)

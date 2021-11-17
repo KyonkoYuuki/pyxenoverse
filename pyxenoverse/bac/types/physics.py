@@ -24,8 +24,11 @@ class Physics(BaseType):
     size = 32
 
     description_type = "function_type"
-    description = {0x1: "Simulate Physics",
-                   0x2: "Play SCD Animations"}
+    description = {
+        0x0: "Unknown",
+        0x1: "Simulate Physics",
+        0x2: "Play SCD Animations"
+    }
 
     def __init__(self, index):
         super().__init__(index)

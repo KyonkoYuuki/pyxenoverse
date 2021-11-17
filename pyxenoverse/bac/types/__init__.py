@@ -13,6 +13,10 @@ class BaseType(BaseRecord):
         self.index = index
         self.data = self.bac_record(*([0] * len(self.bac_record.__fields__)))
 
+    @classmethod
+    def description_choices(cls):
+        return {v: k for k, v in cls.description.items()}
+
     def get_size(self, type17_small):
         return self.size
 
