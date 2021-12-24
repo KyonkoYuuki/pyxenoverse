@@ -56,6 +56,7 @@ FUNCTION_MAPPINGS = {
     0x3f: ('Limit burst', None, None, None, None, None),
     0x43: ('Auto-dodge', 'Stamina cost', None, None, None, None),
     0x44: ('Damage x10', 'Damage', None, None, None, None),
+    0x4a: ('Skill Cooldown', 'Cooldown duration', None, None, None, None),
     0x4c: ('Activate Buff', 'Super Soul ID', None, None, None, None),
     0x4d: ('Count-Specific Loop (Hold Down)', 'Loop Step', "Skill ID", "Skill Type", "Loop Count", None),
     0x4e: ('Skill Upgrade', 'Skill Id', 'Skill Type', 'Upgrade Cmd', 'F_18', 'F_1C'),
