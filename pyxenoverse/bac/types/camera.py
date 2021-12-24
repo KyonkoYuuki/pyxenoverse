@@ -60,7 +60,7 @@ class Camera(BaseType):
         0x8: "Victim",
         0x9: "Unknown (0x9)",
         0xa: "Zoom/speed lines",
-        0xb: "Cinematic (0xb)",
+        0xb: "Battle Camera",
         0xc: "Cinematic (0xc)",
         0xd: "Unknown (0xd)",
         0xe: "Heavy Rumble",

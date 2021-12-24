@@ -10,7 +10,7 @@ BACHomingMovement = recordclass('BACHomingMovement', [
     'u_04',
     'character_type',
     'homing_movement_type',
-    'horizontal_homing_arc_direction',
+    'properties',
     'speed_modifier',
     'frame_threshold',
     'horizontal_direction_modifier',
@@ -45,8 +45,7 @@ class HomingMovement(BaseType):
         super().read(f, endian, _)
 
         # Read the speed modifier as a float
-        if self.horizontal_homing_arc_direction == 7 \
-                or self.horizontal_homing_arc_direction == 35:
+        if self.properties & 2 == 2:
             f.seek(address + 12)
 
             self.speed_modifier = struct.unpack(endian + "f", f.read(4))[0]
@@ -60,8 +59,7 @@ class HomingMovement(BaseType):
         super().write(f, endian)
 
         # Write it as a float
-        if self.horizontal_homing_arc_direction == 7 \
-                or self.horizontal_homing_arc_direction == 35:
+        if self.properties & 2 == 2:
             self.speed_modifier = speed_modifier_float
             f.seek(address + 12)
             f.write(struct.pack(endian + "f", self.speed_modifier))
