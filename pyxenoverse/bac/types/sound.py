@@ -27,7 +27,7 @@ class Sound(BaseType):
         0x1: "Unknown (0x1)",
         0x2: "Character SE",
         0x3: "Character VOX",
-        0x4: "Unknown (0x4)",
+        0x4: "CAR_BTL_BKG_CMN",
         0x5: "Unknown (0x5)",
         0x6: "Unknown (0x6)",
         0x7: "Unknown (0x7)",

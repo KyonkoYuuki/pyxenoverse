@@ -37,14 +37,15 @@ class Effect(BaseType):
         0x0: "Global",
         0x1: "Stage BG",
         0x2: "Player",
-        0x3: "Awoken",
+        0x3: "Skill",
         0x5: "Super",
         0x6: "Ultimate",
         0x7: "Evasive",
         0x8: "Unknown (0x8)",
         0x9: "Ki blast",
         0xa: "Unknown (0xa)",
-        0xb: "Stage (0xb)"
+        0xb: "Stage (0xb)",
+        0xc: "Awoken"
     }
 
     def __init__(self, index):

@@ -25,7 +25,7 @@ class AuraEffect(BaseType):
         0x0: "Boost start",
         0x1: "Boost loop",
         0x2: "Boost end",
-        0x3: "Ki charge loop",
+        0x3: "Ki charge start (loopable)",
         0x4: "Ki charge end",
         0x5: "Transform aura loop",
         0x6: "Transform aura end"

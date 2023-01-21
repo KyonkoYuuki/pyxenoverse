@@ -16,19 +16,19 @@ BACHitbox = recordclass('BACHitbox', [
     'bdm_type',
 
     'hitbox_properties_1',
-    'hitbox_properties_2',
-    'f_18',
+    'bone_link',
     'position_x',
-
     'position_y',
     'position_z',
-    'size_x',
-    'size_y',
+    'scale',
 
-    'size_z',
-    'rotation_x',
-    'rotation_y',
-    'rotation_z'
+    'maximum_box_x',
+    'maximum_box_y',
+    'maximum_box_z',
+
+    'minimum_box_x',
+    'minimum_box_y',
+    'minimum_box_z'
 ])
 
 

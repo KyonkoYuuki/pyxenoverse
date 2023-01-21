@@ -22,6 +22,8 @@ FUNCTION_MAPPINGS = {
     0x4: ('Give/take Ki', 'Ki', None, None, None, None),
     0x6: ('Invisibility', None, None, None, None, None),
     0x7: ('Rotate animation', 'Y-axis Degrees', None, None, None, None),
+    0x8: ('Viberate Controller', None, None, None, None, None),
+    0x9: ('Viberate Controller', None, None, None, None, None),
     0xb: ('Override throw duration', 'Duration', None, None, None, None),
     0xc: ('Darken Screen', None, None, None, None, None),
     0xd: ('Activate transformation', None, None, None, None, None),
@@ -57,10 +59,17 @@ FUNCTION_MAPPINGS = {
     0x43: ('Auto-dodge', 'Stamina cost', None, None, None, None),
     0x44: ('Damage x10', 'Damage', None, None, None, None),
     0x4a: ('Skill Cooldown', 'Cooldown duration', None, None, None, None),
+    0x4f: ('Rotate b_C_Base', 'Rotation Angle?', None, None, None, None),
     0x4c: ('Activate Buff', 'Super Soul ID', None, None, None, None),
     0x4d: ('Count-Specific Loop (Hold Down)', 'Loop Step', "Skill ID", "Skill Type", "Loop Count", None),
     0x4e: ('Skill Upgrade', 'Skill Id', 'Skill Type', 'Upgrade Cmd', 'F_18', 'F_1C'),
     0x50: ('Allow Evasive Usage', 'Unknown', 'Start Frame', 'Unknown', None, None),
+    0x58: ('Guard Against Projectile', 'Power Level?', None, None, None, None),
+    0x59: ('Untarget Opponent', None, None, None, None, None),
+
+    0x5f: ('Auto-dodge', 'Stamina cost', 'HP Condition %', None, None, None),
+
+
 }
 
 
