@@ -22,7 +22,7 @@ BACScreenEffect = recordclass('BACScreenEffect', [
 class ScreenEffect(BaseType):
     type = 16
     bac_record = BACScreenEffect
-    byte_order = 'HHHHIHH IffI'
+    byte_order = 'HHHHIHH Ifff'
     size = 32
 
     description_type = "bpe_effect_id"

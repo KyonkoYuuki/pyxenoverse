@@ -1,0 +1,7 @@
+bcm
+added more input options
+
+bac
+screeneffect : added position options
+projectile : added projectiel startup options
+camera : added camera types

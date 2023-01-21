@@ -62,14 +62,14 @@ class Camera(BaseType):
         0xa: "Zoom/speed lines",
         0xb: "Battle Camera",
         0xc: "Cinematic (0xc)",
-        0xd: "Unknown (0xd)",
-        0xe: "Heavy Rumble",
-        0xf: "Extreme Rumble",
+        0xd: "Look at Target",
+        0xe: "Small Rumble",
+        0xf: "Ultra Rumble",
         0x11: "Zoom into player",
         0x14: "Unknown (0x14)",
         0x16: "Unknown (0x16)",
         0x19: "Activate Extended Camera",
-        0x1a: "Unknown (0x1a",
+        0x1a: "Unknown (0x1a)",
         0x20: "Deactivate Extended Camera"
     }
 

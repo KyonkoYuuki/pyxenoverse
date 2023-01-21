@@ -45,7 +45,7 @@ BDMType0 = recordclass('BDMType0', [
     'u_58_3',
     'damage_special',
     'u_60_1', #array
-    'u_60_2',
+    'damage_special2',
     'stumble_type',
     'secondary_type',
     'camera_shake_type',
