@@ -8,10 +8,10 @@ BACType28 = recordclass('BACType28', [
     'u_04',
     'character_type',
 
-    'u_00',
+    'dyt_flags',
     'u_040',
-    'u_08',
-    'f_12',
+    'switch_transition_start',
+    'switch_transition_end',
     'u_16',
     'u_20',
     'u_24'
@@ -22,7 +22,7 @@ BACType28 = recordclass('BACType28', [
 class Type28(BaseType):
     type = 28
     bac_record = BACType28
-    byte_order = 'HHHH IIIfIII'
+    byte_order = 'HHHH IIffIII'
     size = 36
 
     def __init__(self, index):
