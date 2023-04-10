@@ -9,7 +9,7 @@ BACBcmCallback = recordclass('BACBcmCallback', [
     'u_04',
     'character_type',
     'bcm_link_flags',
-    'u_0a'
+
 ])
 
 
@@ -18,7 +18,7 @@ class BcmCallback(BaseType):
     type = 7
     bac_record = BACBcmCallback
     byte_order = 'HH' \
-                 'HHHH'
+                 'HHI'
     size = 12
 
     def __init__(self, index):

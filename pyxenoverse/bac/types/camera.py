@@ -67,6 +67,7 @@ class Camera(BaseType):
         0xf: "Ultra Rumble",
         0x11: "Zoom into player",
         0x14: "Unknown (0x14)",
+        0x13: "Unknown (0x13)",
         0x16: "Unknown (0x16)",
         0x19: "Activate Extended Camera",
         0x1a: "Unknown (0x1a)",
