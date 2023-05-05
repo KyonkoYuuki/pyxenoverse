@@ -6,7 +6,7 @@ BSAEntryPassing = recordclass('BSAEntryPassing', [
     'i_00',
     'main_condition',
     'bsa_entry_id',
-    'i_06',
+    'jump_to_bac_entry_id',
     'bac_condition',
     'f_12'
 ])

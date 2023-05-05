@@ -11,9 +11,9 @@ from pyxenoverse.bsa.types.hitbox import Hitbox
 from pyxenoverse.bsa.types.deflection import Deflection
 from pyxenoverse.bsa.types.effect import Effect
 from pyxenoverse.bsa.types.sound import Sound
-from pyxenoverse.bsa.types.type8 import Type8
+from pyxenoverse.bsa.types.screen_effect import ScreenEffect
 from pyxenoverse.bsa.types.type12 import Type12
-
+from pyxenoverse.bsa.types.type13 import Type13
 ITEM_TYPES = {
     -2: Collision,
     -1: Expiration,
@@ -25,8 +25,9 @@ ITEM_TYPES = {
     # 5 doesn't exist?
     6: Effect,
     7: Sound,
-    8: Type8,
+    8: ScreenEffect,
     12: Type12,
+    13: Type13
 }
 
 BSASubEntry = recordclass('BSASubEntry', [

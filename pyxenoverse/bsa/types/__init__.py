@@ -4,6 +4,8 @@ from pyxenoverse import BaseRecord
 
 
 class BaseType(BaseRecord):
+    description = {}
+    description_type = None
     def __init__(self, index):
         super().__init__()
         self.index = index
@@ -17,6 +19,10 @@ class BaseType(BaseRecord):
     def read_duration(self, f, endian):
         self.start_time, end_time = struct.unpack(endian + "HH", f.read(4))
         self.duration = end_time - self.start_time
+
+    @classmethod
+    def description_choices(cls):
+        return {v: k for k, v in cls.description.items()}
 
     def write(self, f, endian):
         f.write(struct.pack(endian + self.byte_order, *self.data))

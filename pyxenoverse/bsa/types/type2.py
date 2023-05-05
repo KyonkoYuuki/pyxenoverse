@@ -5,7 +5,7 @@ from pyxenoverse.bsa.types import BaseType
 BSAType2 = recordclass('BSAType2', [
     'i_00',
     'i_02',
-    'i_04',
+    'type2_duration',
     'i_06'
 ])
 
