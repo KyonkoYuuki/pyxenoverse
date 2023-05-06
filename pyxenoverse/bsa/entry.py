@@ -69,14 +69,27 @@ class Entry(BaseRecord):
     def __init__(self, index):
         super().__init__()
         self.index = index
-        #self.comment = ""
+        self.comment = ""
         self.collisions = DataList("CollisionList")
         self.expirations = DataList("ExpirationList")
         self.sub_entries = []
         self.data = BSAEntry(*([0] * len(BSAEntry.__fields__)))
 
-    def changeComment(self, cmnt):
-        self.comment = cmnt
+    def setComment(self, cmnt):
+        self.comment = cmnt.rstrip()
+
+    def getDisplayComment(self):
+        if self.comment != "" and self.comment != "\n":
+            #print("yes, its NOT empty......")
+            return f" - {self.comment}"
+        else:
+            return ""
+    def getComment(self):
+        if self.comment != "":
+            #print("yes, its NOT empty......")
+            return self.comment
+        else:
+            return ""
 
     def read(self, f, endian):
         current = f.tell()
@@ -127,7 +140,7 @@ class Entry(BaseRecord):
         for expiration in self.expirations:
             expiration.write(f, endian)
 
-        print(f"NUMBER OF ENTRIES {self.sub_entry_count}")
+        #print(f"NUMBER OF ENTRIES {self.sub_entry_count}")
         if not self.sub_entry_count:
             return
         current_offset = sub_entry_offset = f.tell()
