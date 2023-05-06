@@ -24,6 +24,7 @@ class BSA:
         self.header = None
         self.endian = endian
         self.entries = []
+        self.has_comments = False
         self.filename = ''
 
     def load(self, filename):
@@ -59,6 +60,7 @@ class BSA:
         try:
             with open(filename, 'r') as f:
                 comments = f.readlines()
+                self.has_comments = True
                 if self.entries:
                     for i, entry in enumerate(self.entries):
                         entry.setComment(comments[i])
@@ -69,6 +71,8 @@ class BSA:
 
 
     def saveComment(self, fileName=None):
+        if not self.has_comments:
+            return
         fileName = fileName[0:-4]
         fileName = fileName + "_BSA.cmnt"
         cmnt_list = []

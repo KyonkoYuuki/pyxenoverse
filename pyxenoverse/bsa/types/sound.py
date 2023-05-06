@@ -20,6 +20,7 @@ class Sound(BaseType):
     description_type = "acb_file"
     description = {
         0x0: "CAR_BTL_CMN",
+        0x1: "Chara SE",
         0x3: "Skill SE",
 
     }

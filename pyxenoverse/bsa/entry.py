@@ -159,7 +159,7 @@ class Entry(BaseRecord):
         if type(self) != type(other):
             return False
 
-        print("PASTE ON ENTRY CALLED")
+        #print("PASTE ON ENTRY CALLED")
         self.data = BSAEntry(*other.data)
         #self.after_effects = other.after_effects.copy()
         self.collisions = other.collisions.copy()
