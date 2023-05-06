@@ -12,6 +12,7 @@ from pyxenoverse.bsa.types.deflection import Deflection
 from pyxenoverse.bsa.types.effect import Effect
 from pyxenoverse.bsa.types.sound import Sound
 from pyxenoverse.bsa.types.screen_effect import ScreenEffect
+from pyxenoverse.bsa.types.type10 import Type10
 from pyxenoverse.bsa.types.type12 import Type12
 from pyxenoverse.bsa.types.type13 import Type13
 ITEM_TYPES = {
@@ -26,6 +27,7 @@ ITEM_TYPES = {
     6: Effect,
     7: Sound,
     8: ScreenEffect,
+    10: Type10,
     12: Type12,
     13: Type13
 }
