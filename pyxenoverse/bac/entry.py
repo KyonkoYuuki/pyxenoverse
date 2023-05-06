@@ -20,9 +20,26 @@ class Entry(BaseRecord):
         super().__init__()
         self.bac = bac
         self.index = index
+        self.comment = ""
         self.sub_entries = []
         self.data = BACEntry(*([0] * len(BACEntry.__fields__)))
         self.flags = 0x80000000
+
+    def setComment(self, cmnt):
+        self.comment = cmnt.rstrip()
+
+    def getDisplayComment(self):
+        if self.comment != "" and self.comment != "\n":
+            #print("yes, its NOT empty......")
+            return f" - {self.comment}"
+        else:
+            return ""
+    def getComment(self):
+        if self.comment != "":
+            #print("yes, its NOT empty......")
+            return self.comment
+        else:
+            return ""
 
     def read(self, f, endian):
         self.data = BACEntry(*struct.unpack(endian + BAC_ENTRY_BYTE_ORDER, f.read(BAC_ENTRY_SIZE)))
