@@ -17,11 +17,13 @@ BSAHitbox = recordclass('BSAHitbox', [
     'min_box_x',
     'min_box_y',
     'min_box_z',
-    'amount',
-    'power',
 
+    'amount',
+    'amount_1',
+    'power',
     'i_52',
     'i_54',
+
     'i_56',
     'bdm_first_hit_id',
     'bdm_multiple_hits_id',
@@ -33,7 +35,7 @@ BSAHitbox = recordclass('BSAHitbox', [
 class Hitbox(BaseType):
     type = 3
     bsa_record = BSAHitbox
-    byte_order = 'HHHH ffff ffff ff HHHH HHHH'
+    byte_order = 'HHHH ffff ffff ff BBHHH HHHH'
     size = 64
 
     def __init__(self, index):
