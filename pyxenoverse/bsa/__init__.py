@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import os
 import struct
 from recordclass import recordclass
 
@@ -23,6 +24,7 @@ class BSA:
         self.header = None
         self.endian = endian
         self.entries = []
+        self.has_comments = False
         self.filename = ''
 
     def load(self, filename):
@@ -34,6 +36,7 @@ class BSA:
             f.seek(4)
             self.read(f, self.endian)
         self.filename = filename
+
         return True
 
     def save(self, filename=None):
@@ -42,6 +45,47 @@ class BSA:
         with open(self.filename, 'wb') as f:
             f.write(BSA_SIGNATURE)
             self.write(f, self.endian)
+
+    def loadComment(self, filename):
+        #comment
+
+        filename = filename[0:-4]
+        filename = filename + "_BSA.cmnt"
+
+        if not os.path.exists(filename):
+            #print("does not exists")
+            return
+
+        print(self.entries)
+        try:
+            with open(filename, 'r') as f:
+                comments = f.readlines()
+                self.has_comments = True
+                if self.entries:
+                    for i, entry in enumerate(self.entries):
+                        entry.setComment(comments[i])
+        except:
+            print("failed to load comment data, file might be empty or incorrectly formatted")
+            return
+
+
+
+    def saveComment(self, fileName=None):
+        if not self.has_comments:
+            return
+        fileName = fileName[0:-4]
+        fileName = fileName + "_BSA.cmnt"
+        cmnt_list = []
+        try:
+            with open(fileName, 'w') as f:
+                for entry in self.entries:
+
+                    cmnt_list.append(entry.getComment() + "\n")
+                f.writelines(cmnt_list)
+        except:
+            print("failed to save comment data")
+            return
+
 
     def read(self, f, endian):
         self.header = BSAHeader(*struct.unpack(endian + BSA_HEADER_BYTE_ORDER, f.read(BSA_HEADER_SIZE)))
@@ -59,6 +103,8 @@ class BSA:
             f.seek(offset)
             entry.read(f, endian)
             self.entries.append(entry)
+
+
 
     def write(self, f, endian):
         self.entries.sort(key=lambda entry: entry.index)

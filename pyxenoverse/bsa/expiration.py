@@ -19,6 +19,9 @@ class Expiration(BaseRecord):
     type = -1
     bsa_record = BSAExpiration
 
+    description = {}
+    description_type = None
+
     def __init__(self):
         super().__init__()
         self.data = BSAExpiration(*([0] * len(BSAExpiration.__fields__)))
@@ -26,6 +29,10 @@ class Expiration(BaseRecord):
     def read(self, f, endian):
         self.data = BSAExpiration(*struct.unpack(endian + BSA_EXPIRATION_BYTE_ORDER, f.read(BSA_EXPIRATION_SIZE)))
         # print(self.data)
+
+    @classmethod
+    def description_choices(cls):
+        return {v: k for k, v in cls.description.items()}
 
     def write(self, f, endian):
         f.write(struct.pack(endian + BSA_EXPIRATION_BYTE_ORDER, *self.data))

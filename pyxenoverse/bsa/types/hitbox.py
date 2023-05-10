@@ -3,7 +3,7 @@ from recordclass import recordclass
 from pyxenoverse.bsa.types import BaseType
 
 BSAHitbox = recordclass('BSAHitbox', [
-    'i_00',
+    'matrix_flags',
     'i_02',
     'i_04',
     'i_06',
@@ -11,16 +11,19 @@ BSAHitbox = recordclass('BSAHitbox', [
     'position_y',
     'position_z',
     'hitbox_scale',
-    'f_24',
-    'f_28',
-    'f_32',
-    'f_36',
-    'f_40',
+    'max_box_x',
+    'max_box_y',
+    'max_box_z',
+    'min_box_x',
+    'min_box_y',
+    'min_box_z',
+
     'amount',
-    'lifetime',
-    'i_50',
+    'amount_1',
+    'power',
     'i_52',
     'i_54',
+
     'i_56',
     'bdm_first_hit_id',
     'bdm_multiple_hits_id',
@@ -32,7 +35,7 @@ BSAHitbox = recordclass('BSAHitbox', [
 class Hitbox(BaseType):
     type = 3
     bsa_record = BSAHitbox
-    byte_order = 'HHHHffffffffffHHHHHHHH'
+    byte_order = 'HHHH ffff ffff ff BBHHH HHHH'
     size = 64
 
     def __init__(self, index):

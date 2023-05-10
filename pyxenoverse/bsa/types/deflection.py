@@ -16,7 +16,7 @@ BSADeflection = recordclass('BSADeflection', [
     'i_40',
     'i_44',
     'i_48',
-    'i_50',
+    'newpower',
     'i_52',
     'i_54'
 ])

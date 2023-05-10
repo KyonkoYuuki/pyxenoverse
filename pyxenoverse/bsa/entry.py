@@ -31,16 +31,19 @@ BSAEntry = recordclass('BSAEntry', [
 
 
 BSA_ENTRY_HEADER_SIZE = 52
-BSA_ENTRY_HEADER_BYTE_ORDER = 'IHHIIBBIHHHHHHHIIII'
+BSA_ENTRY_HEADER_BYTE_ORDER = 'I HH II BB IH HHHHHHIIII'
 
 
 class DataList(list):
     type = -3
     bsa_record = None
 
-    def __init__(self, name):
+    def __init__(self, name, lst=None):
         super().__init__()
         self.name = name
+        self.type = type
+        if lst:
+            self.extend(lst)
 
     def paste(self, other):
         if type(self) != type(other):
@@ -51,10 +54,12 @@ class DataList(list):
         self.extend(other.copy())
 
     def get_name(self):
+        print("GET NAME CALLED")
         return self.name
 
     def get_readable_name(self):
         return reduce(lambda x, y: x + (' ' if y.isupper() else '') + y, self.get_name())
+
 
 
 class Entry(BaseRecord):
@@ -64,10 +69,27 @@ class Entry(BaseRecord):
     def __init__(self, index):
         super().__init__()
         self.index = index
+        self.comment = ""
         self.collisions = DataList("CollisionList")
         self.expirations = DataList("ExpirationList")
         self.sub_entries = []
         self.data = BSAEntry(*([0] * len(BSAEntry.__fields__)))
+
+    def setComment(self, cmnt):
+        self.comment = cmnt.rstrip()
+
+    def getDisplayComment(self):
+        if self.comment != "" and self.comment != "\n":
+            #print("yes, its NOT empty......")
+            return f" - {self.comment}"
+        else:
+            return ""
+    def getComment(self):
+        if self.comment != "":
+            #print("yes, its NOT empty......")
+            return self.comment
+        else:
+            return ""
 
     def read(self, f, endian):
         current = f.tell()
@@ -118,6 +140,7 @@ class Entry(BaseRecord):
         for expiration in self.expirations:
             expiration.write(f, endian)
 
+        #print(f"NUMBER OF ENTRIES {self.sub_entry_count}")
         if not self.sub_entry_count:
             return
         current_offset = sub_entry_offset = f.tell()
@@ -132,9 +155,14 @@ class Entry(BaseRecord):
             sub_entry.write(f, endian)
         f.seek(data_end)
 
-    def paste(self, other):
+    def paste(self, other, copy_sub_entries=True):
         if type(self) != type(other):
             return False
+
+        #print("PASTE ON ENTRY CALLED")
         self.data = BSAEntry(*other.data)
-        self.after_effects = other.after_effects.copy()
-        self.sub_entries = other.sub_entries.copy()
+        #self.after_effects = other.after_effects.copy()
+        self.collisions = other.collisions.copy()
+        self.expirations = other.expirations.copy()
+        if copy_sub_entries:
+            self.sub_entries = other.sub_entries.copy()

@@ -71,6 +71,8 @@ def create_backup(dirname, filename):
     copy(path, backup_path)
 
 
+
+
 def _get_parent(list_ctrl, item):
     parent = list_ctrl.GetItemParent(item)
     if parent == list_ctrl.GetRootItem():
