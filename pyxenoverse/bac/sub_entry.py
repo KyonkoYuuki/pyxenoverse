@@ -33,6 +33,7 @@ from pyxenoverse.bac.types.extended_camera_control import ExtendedCameraControl
 from pyxenoverse.bac.types.effect_property_control import EffectPropertyControl
 from pyxenoverse.bac.types.type28 import Type28
 from pyxenoverse.bac.types.type29 import Type29
+from pyxenoverse.bac.types.type30 import Type30
 
 ITEM_TYPES = {
     0: Animation,
@@ -64,7 +65,8 @@ ITEM_TYPES = {
     26: ExtendedCameraControl,
     27: EffectPropertyControl,
     28: Type28,
-    29: Type29
+    29: Type29,
+    30: Type30
 }
 
 BACSubEntry = recordclass('BACSubEntry', [
