@@ -126,6 +126,8 @@ class SubEntry(BaseRecord):
             return False
         self.data = BACSubEntry(*other.data)
 
+
+
         if copy_items:
             self.items = other.items.copy()
             for item in self.items:
