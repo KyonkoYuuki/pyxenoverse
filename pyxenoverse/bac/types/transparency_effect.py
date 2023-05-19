@@ -35,7 +35,7 @@ class TransparencyEffect(BaseType):
 
     def __init__(self, index):
         super().__init__(index)
-        self.color = [0, 0, 0]
+        self.color = [255, 255, 255]
 
     def read(self, f, endian, _):
         super().read(f, endian, _)
